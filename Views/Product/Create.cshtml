@@ -22,17 +22,17 @@
         <span asp-validation-for="Description"></span>
     </div>
     <div>
-        <label asp-for="Category"></label>
-        <select asp-for="Category">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId">
             <option value="">Select Category</option>
-            <option value="Women">Women</option>
-            <option value="Men">Men</option>
-            <option value="Kids">Kids</option>
-            <option value="Sports">Sports</option>
-            <option value="Casual">Casual</option>
-            <option value="Heels">Heels</option>
+            <option value="1">Women</option>
+            <option value="2">Men</option>
+            <option value="3">Kids</option>
+            <option value="4">Sports</option>
+            <option value="5">Casual</option>
+            <option value="6">Heels</option>
         </select>
-        <span asp-validation-for="Category"></span>
+        <span asp-validation-for="CategoryId"></span>
     </div>
     <div>
         <label asp-for="Quantity"></label>
@@ -42,4 +42,5 @@
     <br />
     <button type="submit">Create</button>
 </form>
+<br />
 <a asp-action="Index">Back to List</a>
