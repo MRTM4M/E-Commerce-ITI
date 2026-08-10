@@ -1,0 +1,45 @@
+﻿@model E_Commerce_iti.Models.Product
+<h2>Create Product</h2>
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+    </div>
+    <div>
+        <label asp-for="Image"></label>
+        <input asp-for="Image" />
+        <span asp-validation-for="Image"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Category"></label>
+        <select asp-for="Category">
+            <option value="">Select Category</option>
+            <option value="Women">Women</option>
+            <option value="Men">Men</option>
+            <option value="Kids">Kids</option>
+            <option value="Sports">Sports</option>
+            <option value="Casual">Casual</option>
+            <option value="Heels">Heels</option>
+        </select>
+        <span asp-validation-for="Category"></span>
+    </div>
+    <div>
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" />
+        <span asp-validation-for="Quantity"></span>
+    </div>
+    <br />
+    <button type="submit">Create</button>
+</form>
+<a asp-action="Index">Back to List</a>
