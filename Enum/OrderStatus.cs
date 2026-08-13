@@ -1,6 +1,11 @@
 ﻿namespace E_commerce_iti.Enum
 {
-    public class OrderStatus
+    public enum OrderStatus
     {
+        Pending,
+        Confirmed,
+        Shipped,
+        Delivered,
+        Cancelled
     }
 }
