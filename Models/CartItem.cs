@@ -1,5 +1,4 @@
-﻿using E_Commerce_iti.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_commerce_iti.Models
@@ -8,11 +7,7 @@ namespace E_commerce_iti.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("Cart")]
         public int CartId { get; set; }
-
-        [ForeignKey("Product")]
         public int ProductId { get; set; }
 
         [Required]

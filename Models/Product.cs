@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace E_Commerce_iti.Models
+namespace E_commerce_iti.Models
 {
     public class Product
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
         [Required]
@@ -27,7 +25,9 @@ namespace E_Commerce_iti.Models
 
         [Range(0, int.MaxValue)]
         public int Stock { get; set; }
-
         public Category Category { get; set; }
+        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
     }
 }

@@ -1,462 +1,557 @@
-﻿
-////DONOT DELETE THIS FILE, IT IS USED FOR SEEDING FAKE DATA INTO THE DATABASE WHEN THE
-////APPLICATION IS RUN FOR THE FIRST TIME. IT IS COMMENTED OUT TO PREVENT ACCIDENTAL EXECUTION.
-////UNCOMMENT AND CALL THE AddData METHOD IN Program.cs TO USE IT.
-//using E_commerce_iti.Enum;
-//using E_commerce_iti.Models;
-//using Microsoft.EntityFrameworkCore;
-
-//namespace E_commerce_iti.Data
-//{
-//    public static class seeder
-//    {
-//        public static void AddData(ECommerceDB context)
-//        {
-//            Console.WriteLine("Fake data seeding started...");
-
-//            // =========================
-//            // Remove Existing Data
-//            // =========================
-
-//            context.OrderItems.RemoveRange(context.OrderItems);
-//            context.Orders.RemoveRange(context.Orders);
-
-//            context.CartItems.RemoveRange(context.CartItems);
-//            context.Carts.RemoveRange(context.Carts);
-
-//            context.Products.RemoveRange(context.Products);
-//            context.Categories.RemoveRange(context.Categories);
-
-//            context.Addresses.RemoveRange(context.Addresses);
-
-//            // Users
-//            context.Users.RemoveRange(context.Users);
-
-//            context.SaveChanges();
-
-//            // =========================
-//            // Reset Identity Seeds
-//            // =========================
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('OrderItems', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('Orders', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('CartItems', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('Carts', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('Products', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('Categories', RESEED, 0)");
-
-//            context.Database.ExecuteSqlRaw(
-//                "DBCC CHECKIDENT ('Addresses', RESEED, 0)");
-
-//            // =========================
-//            // Users
-//            // =========================
-
-//            var users = new[]
-//            {
-//                new ApplicationUser
-//                {
-//                    Id = 1,
-//                    FName = "Mahmoud",
-//                    LName = "Helmy",
-//                    UserName = "mahmoud",
-//                    Email = "mahmoud@example.com",
-//                    PhoneNumber = "01000000000",
-//                    CreatedAt = DateTime.UtcNow.AddDays(-30)
-//                },
-
-//                new ApplicationUser
-//                {
-//                    Id = 2,
-//                    FName = "Ahmed",
-//                    LName = "Ali",
-//                    UserName = "ahmed",
-//                    Email = "ahmed@example.com",
-//                    PhoneNumber = "01111111111",
-//                    CreatedAt = DateTime.UtcNow.AddDays(-20)
-//                },
-
-//                new ApplicationUser
-//                {
-//                    Id = 3,
-//                    FName = "Sara",
-//                    LName = "Mohamed",
-//                    UserName = "sara",
-//                    Email = "sara@example.com",
-//                    PhoneNumber = "01222222222",
-//                    CreatedAt = DateTime.UtcNow.AddDays(-10)
-//                }
-//            };
-
-//            context.Users.AddRange(users);
-
-//            // =========================
-//            // Addresses
-//            // =========================
-
-//            var addresses = new[]
-//            {
-//                new Address
-//                {
-//                    Id = 1,
-//                    UserId = 1,
-//                    City = "Cairo",
-//                    Country = "Egypt",
-//                    Street = "Nasr City"
-//                },
-
-//                new Address
-//                {
-//                    Id = 2,
-//                    UserId = 1,
-//                    City = "Cairo",
-//                    Country = "Egypt",
-//                    Street = "Heliopolis"
-//                },
-
-//                new Address
-//                {
-//                    Id = 3,
-//                    UserId = 2,
-//                    City = "Giza",
-//                    Country = "Egypt",
-//                    Street = "Dokki"
-//                },
-
-//                new Address
-//                {
-//                    Id = 4,
-//                    UserId = 3,
-//                    City = "Alexandria",
-//                    Country = "Egypt",
-//                    Street = "Smouha"
-//                }
-//            };
-
-//            context.Addresses.AddRange(addresses);
-
-//            // =========================
-//            // Categories
-//            // =========================
-
-//            var categories = new[]
-//            {
-//                new Category
-//                {
-//                    Id = 1,
-//                    Name = "Laptops",
-//                    Description = "Laptops and notebooks",
-//                    ImageUrl = "laptops.jpg"
-//                },
-
-//                new Category
-//                {
-//                    Id = 2,
-//                    Name = "Phones",
-//                    Description = "Smartphones and mobile devices",
-//                    ImageUrl = "phones.jpg"
-//                },
-
-//                new Category
-//                {
-//                    Id = 3,
-//                    Name = "Accessories",
-//                    Description = "Computer and phone accessories",
-//                    ImageUrl = "accessories.jpg"
-//                }
-//            };
-
-//            context.Categories.AddRange(categories);
-
-//            // =========================
-//            // Products
-//            // =========================
-
-//            var products = new[]
-//            {
-//                new Product
-//                {
-//                    Id = 1,
-//                    CategoryId = 1,
-//                    Name = "Dell XPS 15",
-//                    Price = 1500,
-//                    Image = "dell-xps.jpg",
-//                    Description = "High performance laptop",
-//                    Stock = 10
-//                },
-
-//                new Product
-//                {
-//                    Id = 2,
-//                    CategoryId = 1,
-//                    Name = "Lenovo ThinkPad",
-//                    Price = 1200,
-//                    Image = "thinkpad.jpg",
-//                    Description = "Business laptop",
-//                    Stock = 15
-//                },
-
-//                new Product
-//                {
-//                    Id = 3,
-//                    CategoryId = 2,
-//                    Name = "iPhone 15",
-//                    Price = 900,
-//                    Image = "iphone15.jpg",
-//                    Description = "Apple smartphone",
-//                    Stock = 20
-//                },
-
-//                new Product
-//                {
-//                    Id = 4,
-//                    CategoryId = 2,
-//                    Name = "Samsung Galaxy S24",
-//                    Price = 850,
-//                    Image = "s24.jpg",
-//                    Description = "Samsung flagship smartphone",
-//                    Stock = 12
-//                },
-
-//                new Product
-//                {
-//                    Id = 5,
-//                    CategoryId = 3,
-//                    Name = "Wireless Mouse",
-//                    Price = 30,
-//                    Image = "mouse.jpg",
-//                    Description = "Wireless ergonomic mouse",
-//                    Stock = 50
-//                },
-
-//                new Product
-//                {
-//                    Id = 6,
-//                    CategoryId = 3,
-//                    Name = "Mechanical Keyboard",
-//                    Price = 80,
-//                    Image = "keyboard.jpg",
-//                    Description = "Mechanical gaming keyboard",
-//                    Stock = 25
-//                }
-//            };
-
-//            context.Products.AddRange(products);
-
-//            // =========================
-//            // Carts
-//            // =========================
-
-//            var carts = new[]
-//            {
-//                new Cart
-//                {
-//                    Id = 1,
-//                    UserId = 1
-//                },
-
-//                new Cart
-//                {
-//                    Id = 2,
-//                    UserId = 2
-//                },
-
-//                new Cart
-//                {
-//                    Id = 3,
-//                    UserId = 3
-//                }
-//            };
-
-//            context.Carts.AddRange(carts);
-
-//            // =========================
-//            // Cart Items
-//            // =========================
-
-//            var cartItems = new[]
-//            {
-//                new CartItem
-//                {
-//                    Id = 1,
-//                    CartId = 1,
-//                    ProductId = 1,
-//                    Quantity = 1
-//                },
-
-//                new CartItem
-//                {
-//                    Id = 2,
-//                    CartId = 1,
-//                    ProductId = 5,
-//                    Quantity = 2
-//                },
-
-//                new CartItem
-//                {
-//                    Id = 3,
-//                    CartId = 2,
-//                    ProductId = 3,
-//                    Quantity = 1
-//                },
-
-//                new CartItem
-//                {
-//                    Id = 4,
-//                    CartId = 2,
-//                    ProductId = 6,
-//                    Quantity = 1
-//                },
-
-//                new CartItem
-//                {
-//                    Id = 5,
-//                    CartId = 3,
-//                    ProductId = 4,
-//                    Quantity = 2
-//                }
-//            };
-
-//            context.CartItems.AddRange(cartItems);
-
-//            // =========================
-//            // Orders
-//            // =========================
-
-//            var orders = new[]
-//            {
-//                new Order
-//                {
-//                    Id = 1,
-//                    UserId = 1,
-//                    OrderDate = DateTime.UtcNow.AddDays(-7),
-//                    TotalPrice = 1560,
-//                    Status = OrderStatus.Delivered,
-//                    ShippingCity = "Cairo",
-//                    ShippingStreet = "Nasr City",
-//                    ShippingCountry = "Egypt"
-//                },
-
-//                new Order
-//                {
-//                    Id = 2,
-//                    UserId = 1,
-//                    OrderDate = DateTime.UtcNow.AddDays(-2),
-//                    TotalPrice = 900,
-//                    Status = OrderStatus.Pending,
-//                    ShippingCity = "Cairo",
-//                    ShippingStreet = "Heliopolis",
-//                    ShippingCountry = "Egypt"
-//                },
-
-//                new Order
-//                {
-//                    Id = 3,
-//                    UserId = 2,
-//                    OrderDate = DateTime.UtcNow.AddDays(-4),
-//                    TotalPrice = 980,
-//                    Status = OrderStatus.Shipped,
-//                    ShippingCity = "Giza",
-//                    ShippingStreet = "Dokki",
-//                    ShippingCountry = "Egypt"
-//                },
-
-//                new Order
-//                {
-//                    Id = 4,
-//                    UserId = 3,
-//                    OrderDate = DateTime.UtcNow.AddDays(-1),
-//                    TotalPrice = 1700,
-//                    Status = OrderStatus.Confirmed,
-//                    ShippingCity = "Alexandria",
-//                    ShippingStreet = "Smouha",
-//                    ShippingCountry = "Egypt"
-//                }
-//            };
-
-//            context.Orders.AddRange(orders);
-
-//            // =========================
-//            // Order Items
-//            // =========================
-
-//            var orderItems = new[]
-//            {
-//                new OrderItem
-//                {
-//                    Id = 1,
-//                    OrderId = 1,
-//                    ProductId = 1,
-//                    Quantity = 1,
-//                    UnitPrice = 1500
-//                },
-
-//                new OrderItem
-//                {
-//                    Id = 2,
-//                    OrderId = 1,
-//                    ProductId = 5,
-//                    Quantity = 2,
-//                    UnitPrice = 30
-//                },
-
-//                new OrderItem
-//                {
-//                    Id = 3,
-//                    OrderId = 2,
-//                    ProductId = 3,
-//                    Quantity = 1,
-//                    UnitPrice = 900
-//                },
-
-//                new OrderItem
-//                {
-//                    Id = 4,
-//                    OrderId = 3,
-//                    ProductId = 3,
-//                    Quantity = 1,
-//                    UnitPrice = 900
-//                },
-
-//                new OrderItem
-//                {
-//                    Id = 5,
-//                    OrderId = 3,
-//                    ProductId = 5,
-//                    Quantity = 2,
-//                    UnitPrice = 30
-//                },
-
-//                new OrderItem
-//                {
-//                    Id = 6,
-//                    OrderId = 4,
-//                    ProductId = 4,
-//                    Quantity = 2,
-//                    UnitPrice = 850
-//                }
-//            };
-
-//            context.OrderItems.AddRange(orderItems);
-
-//            // =========================
-//            // Save Everything
-//            // =========================
-
-//            context.SaveChanges();
-
-//            Console.WriteLine("Fake data added successfully!");
-//        }
-//    }
-//}
+﻿using E_commerce_iti.Enum;
+using E_commerce_iti.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+//DONOT DELETE THIS FILE, IT IS USED FOR SEEDING FAKE DATA INTO THE DATABASE WHEN THE
+//APPLICATION IS RUN FOR THE FIRST TIME. IT IS COMMENTED OUT TO PREVENT ACCIDENTAL EXECUTION.
+//UNCOMMENT AND CALL THE AddData METHOD IN Program.cs TO USE IT.
+namespace E_commerce_iti.Data
+{
+    public static class Seeder
+    {
+        public static async Task AddData(
+            ECommerceDB context,
+            UserManager<ApplicationUser> userManager)
+        {
+            Console.WriteLine("Fake data seeding started...");
+
+            // =========================
+            // Remove Existing Data
+            // =========================
+
+            context.OrderItems.RemoveRange(context.OrderItems);
+            context.Orders.RemoveRange(context.Orders);
+
+            context.CartItems.RemoveRange(context.CartItems);
+            context.Carts.RemoveRange(context.Carts);
+
+            context.Products.RemoveRange(context.Products);
+            context.Categories.RemoveRange(context.Categories);
+
+            context.Addresses.RemoveRange(context.Addresses);
+
+            await context.SaveChangesAsync();
+
+            // =========================
+            // Users
+            // =========================
+
+            var existingUsers = await context.Users.ToListAsync();
+
+            foreach (var user in existingUsers)
+            {
+                await userManager.DeleteAsync(user);
+            }
+
+            // Create Mahmoud
+            var mahmoud = new ApplicationUser
+            {
+                FName = "Mahmoud",
+                LName = "Helmy",
+                UserName = "mahmoud",
+                Email = "mahmoud@example.com",
+                PhoneNumber = "01000000000",
+                CreatedAt = DateTime.UtcNow.AddDays(-30)
+            };
+
+            var result = await userManager.CreateAsync(
+                mahmoud,
+                "Mahmoud123!"
+            );
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(
+                    string.Join(", ", result.Errors.Select(e => e.Description))
+                );
+            }
+
+            // Create Ahmed
+            var ahmed = new ApplicationUser
+            {
+                FName = "Ahmed",
+                LName = "Ali",
+                UserName = "ahmed",
+                Email = "ahmed@example.com",
+                PhoneNumber = "01111111111",
+                CreatedAt = DateTime.UtcNow.AddDays(-20)
+            };
+
+            result = await userManager.CreateAsync(
+                ahmed,
+                "Ahmed123!"
+            );
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(
+                    string.Join(", ", result.Errors.Select(e => e.Description))
+                );
+            }
+
+            // Create Sara
+            var sara = new ApplicationUser
+            {
+                FName = "Sara",
+                LName = "Mohamed",
+                UserName = "sara",
+                Email = "sara@example.com",
+                PhoneNumber = "01222222222",
+                CreatedAt = DateTime.UtcNow.AddDays(-10)
+            };
+
+            result = await userManager.CreateAsync(
+                sara,
+                "Sara123!"
+            );
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(
+                    string.Join(", ", result.Errors.Select(e => e.Description))
+                );
+            }
+
+            // =========================
+            // Addresses
+            // =========================
+
+            var addresses = new[]
+            {
+                new Address
+                {
+                    UserId = mahmoud.Id,
+                    City = "Cairo",
+                    Country = "Egypt",
+                    Street = "Nasr City"
+                },
+
+                new Address
+                {
+                    UserId = mahmoud.Id,
+                    City = "Cairo",
+                    Country = "Egypt",
+                    Street = "Heliopolis"
+                },
+
+                new Address
+                {
+                    UserId = ahmed.Id,
+                    City = "Giza",
+                    Country = "Egypt",
+                    Street = "Dokki"
+                },
+
+                new Address
+                {
+                    UserId = sara.Id,
+                    City = "Alexandria",
+                    Country = "Egypt",
+                    Street = "Smouha"
+                }
+            };
+
+            context.Addresses.AddRange(addresses);
+
+            // =========================
+            // Categories
+            // =========================
+
+            var categories = new[]
+            {
+                new Category
+                {
+                    Name = "Women",
+                    Description = "Women's shoes and sneakers",
+                    ImageUrl = "women.jpg"
+                },
+
+                new Category
+                {
+                    Name = "Men",
+                    Description = "Men's shoes and sneakers",
+                    ImageUrl = "men.jpg"
+                },
+
+                new Category
+                {
+                    Name = "Kids",
+                    Description = "Shoes and sneakers for kids",
+                    ImageUrl = "kids.jpg"
+                },
+
+                new Category
+                {
+                    Name = "Sports",
+                    Description = "Sports and running shoes",
+                    ImageUrl = "sports.jpg"
+                },
+
+                new Category
+                {
+                    Name = "Casual",
+                    Description = "Casual shoes for everyday use",
+                    ImageUrl = "casual.jpg"
+                },
+
+                new Category
+                {
+                    Name = "Heels",
+                    Description = "Women's heels and elegant shoes",
+                    ImageUrl = "heels.jpg"
+                }
+            };
+
+            context.Categories.AddRange(categories);
+
+            await context.SaveChangesAsync();
+
+
+            // =========================
+            // Products
+            // =========================
+
+            var products = new[]
+            {
+                // =========================
+                // Women
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[0].Id,
+                    Name = "Women's White Sneakers",
+                    Price = 75,
+                    Image = "women-white-sneakers.jpg",
+                    Description = "Comfortable white sneakers for women",
+                    Stock = 20
+                },
+
+                new Product
+                {
+                    CategoryId = categories[0].Id,
+                    Name = "Women's Running Shoes",
+                    Price = 90,
+                    Image = "women-running-shoes.jpg",
+                    Description = "Lightweight running shoes for women",
+                    Stock = 15
+                },
+
+
+                // =========================
+                // Men
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[1].Id,
+                    Name = "Men's Classic Sneakers",
+                    Price = 85,
+                    Image = "men-classic-sneakers.jpg",
+                    Description = "Classic sneakers for everyday wear",
+                    Stock = 25
+                },
+
+                new Product
+                {
+                    CategoryId = categories[1].Id,
+                    Name = "Men's Leather Shoes",
+                    Price = 120,
+                    Image = "men-leather-shoes.jpg",
+                    Description = "Premium leather shoes for men",
+                    Stock = 10
+                },
+
+
+                // =========================
+                // Kids
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[2].Id,
+                    Name = "Kids Colorful Sneakers",
+                    Price = 45,
+                    Image = "kids-colorful-sneakers.jpg",
+                    Description = "Colorful and comfortable sneakers for kids",
+                    Stock = 30
+                },
+
+                new Product
+                {
+                    CategoryId = categories[2].Id,
+                    Name = "Kids Running Shoes",
+                    Price = 50,
+                    Image = "kids-running-shoes.jpg",
+                    Description = "Lightweight running shoes for kids",
+                    Stock = 20
+                },
+
+
+                // =========================
+                // Sports
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[3].Id,
+                    Name = "Pro Running Shoes",
+                    Price = 110,
+                    Image = "pro-running-shoes.jpg",
+                    Description = "High performance shoes for running and training",
+                    Stock = 18
+                },
+
+                new Product
+                {
+                    CategoryId = categories[3].Id,
+                    Name = "Training Sneakers",
+                    Price = 95,
+                    Image = "training-sneakers.jpg",
+                    Description = "Durable sneakers for sports and training",
+                    Stock = 22
+                },
+
+
+                // =========================
+                // Casual
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[4].Id,
+                    Name = "Classic Casual Sneakers",
+                    Price = 70,
+                    Image = "classic-casual.jpg",
+                    Description = "Comfortable casual sneakers for everyday use",
+                    Stock = 25
+                },
+
+                new Product
+                {
+                    CategoryId = categories[4].Id,
+                    Name = "Canvas Casual Shoes",
+                    Price = 60,
+                    Image = "canvas-casual.jpg",
+                    Description = "Lightweight canvas shoes for everyday wear",
+                    Stock = 30
+                },
+
+
+                // =========================
+                // Heels
+                // =========================
+
+                new Product
+                {
+                    CategoryId = categories[5].Id,
+                    Name = "Classic Black Heels",
+                    Price = 100,
+                    Image = "black-heels.jpg",
+                    Description = "Elegant black heels for special occasions",
+                    Stock = 12
+                },
+
+                new Product
+                {
+                    CategoryId = categories[5].Id,
+                    Name = "Elegant Red Heels",
+                    Price = 115,
+                    Image = "red-heels.jpg",
+                    Description = "Elegant red heels with a stylish design",
+                    Stock = 8
+                }
+            };
+
+            context.Products.AddRange(products);
+
+            await context.SaveChangesAsync();
+
+            // =========================
+            // Carts
+            // =========================
+
+            var carts = new[]
+            {
+                new Cart
+                {
+                    UserId = mahmoud.Id
+                },
+
+                new Cart
+                {
+                    UserId = ahmed.Id
+                },
+
+                new Cart
+                {
+                    UserId = sara.Id
+                }
+            };
+
+            context.Carts.AddRange(carts);
+
+            await context.SaveChangesAsync();
+
+            // =========================
+            // Cart Items
+            // =========================
+
+            var cartItems = new[]
+            {
+                new CartItem
+                {
+                    CartId = carts[0].Id,
+                    ProductId = products[0].Id,
+                    Quantity = 1
+                },
+
+                new CartItem
+                {
+                    CartId = carts[0].Id,
+                    ProductId = products[4].Id,
+                    Quantity = 2
+                },
+
+                new CartItem
+                {
+                    CartId = carts[1].Id,
+                    ProductId = products[2].Id,
+                    Quantity = 1
+                },
+
+                new CartItem
+                {
+                    CartId = carts[1].Id,
+                    ProductId = products[5].Id,
+                    Quantity = 1
+                },
+
+                new CartItem
+                {
+                    CartId = carts[2].Id,
+                    ProductId = products[3].Id,
+                    Quantity = 2
+                }
+            };
+
+            context.CartItems.AddRange(cartItems);
+
+            // =========================
+            // Orders
+            // =========================
+
+            var orders = new[]
+            {
+                new Order
+                {
+                    UserId = mahmoud.Id,
+                    OrderDate = DateTime.UtcNow.AddDays(-7),
+                    TotalPrice = 1560,
+                    Status = OrderStatus.Delivered,
+                    ShippingCity = "Cairo",
+                    ShippingStreet = "Nasr City",
+                    ShippingCountry = "Egypt"
+                },
+
+                new Order
+                {
+                    UserId = mahmoud.Id,
+                    OrderDate = DateTime.UtcNow.AddDays(-2),
+                    TotalPrice = 900,
+                    Status = OrderStatus.Pending,
+                    ShippingCity = "Cairo",
+                    ShippingStreet = "Heliopolis",
+                    ShippingCountry = "Egypt"
+                },
+
+                new Order
+                {
+                    UserId = ahmed.Id,
+                    OrderDate = DateTime.UtcNow.AddDays(-4),
+                    TotalPrice = 960,
+                    Status = OrderStatus.Shipped,
+                    ShippingCity = "Giza",
+                    ShippingStreet = "Dokki",
+                    ShippingCountry = "Egypt"
+                },
+
+                new Order
+                {
+                    UserId = sara.Id,
+                    OrderDate = DateTime.UtcNow.AddDays(-1),
+                    TotalPrice = 1700,
+                    Status = OrderStatus.Confirmed,
+                    ShippingCity = "Alexandria",
+                    ShippingStreet = "Smouha",
+                    ShippingCountry = "Egypt"
+                }
+            };
+
+            context.Orders.AddRange(orders);
+
+            await context.SaveChangesAsync();
+
+            // =========================
+            // Order Items
+            // =========================
+
+            var orderItems = new[]
+            {
+                new OrderItem
+                {
+                    OrderId = orders[0].Id,
+                    ProductId = products[0].Id,
+                    Quantity = 1,
+                    UnitPrice = 1500
+                },
+
+                new OrderItem
+                {
+                    OrderId = orders[0].Id,
+                    ProductId = products[4].Id,
+                    Quantity = 2,
+                    UnitPrice = 30
+                },
+
+                new OrderItem
+                {
+                    OrderId = orders[1].Id,
+                    ProductId = products[2].Id,
+                    Quantity = 1,
+                    UnitPrice = 900
+                },
+
+                new OrderItem
+                {
+                    OrderId = orders[2].Id,
+                    ProductId = products[2].Id,
+                    Quantity = 1,
+                    UnitPrice = 900
+                },
+
+                new OrderItem
+                {
+                    OrderId = orders[2].Id,
+                    ProductId = products[4].Id,
+                    Quantity = 2,
+                    UnitPrice = 30
+                },
+
+                new OrderItem
+                {
+                    OrderId = orders[3].Id,
+                    ProductId = products[3].Id,
+                    Quantity = 2,
+                    UnitPrice = 850
+                }
+            };
+
+            context.OrderItems.AddRange(orderItems);
+
+            await context.SaveChangesAsync();
+
+            Console.WriteLine("Fake data added successfully!");
+        }
+    }
+}

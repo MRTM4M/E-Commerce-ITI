@@ -1,4 +1,4 @@
-﻿@model E_Commerce_iti.Models.Product
+﻿@model E_commerce_iti.Models.Product
 <h2>Create Product</h2>
 <form asp-action="Create" method="post">
     <div>
@@ -35,9 +35,9 @@
         <span asp-validation-for="CategoryId"></span>
     </div>
     <div>
-        <label asp-for="Quantity"></label>
-        <input asp-for="Quantity" />
-        <span asp-validation-for="Quantity"></span>
+        <label asp-for="Stock"></label>
+        <input asp-for="Stock" />
+        <span asp-validation-for="Stock"></span>
     </div>
     <br />
     <button type="submit">Create</button>

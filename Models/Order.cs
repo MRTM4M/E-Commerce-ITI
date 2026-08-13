@@ -8,8 +8,6 @@ namespace E_commerce_iti.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("User")]
         public int UserId { get; set; }
 
         [Required]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<E_Commerce_iti.Models.Product>
+﻿@model IEnumerable<E_commerce_iti.Models.Product>
 <h2>Products</h2>
 <a asp-action="Create">Create New Product</a>
 <table>
@@ -20,7 +20,7 @@
                 <td>@product.Price</td>
                 <td>@product.Image</td>
                 <td>@product.Category?.Name</td>
-                <td>@product.Quantity</td>
+                <td>@product.Stock</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@product.Id">Details</a>
                     |
