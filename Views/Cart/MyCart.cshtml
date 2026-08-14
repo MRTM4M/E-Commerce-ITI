@@ -1,0 +1,108 @@
+﻿@model E_commerce_iti.ViewModels.CartViewModel
+
+<div class="container mt-5">
+
+    <h1>My Cart</h1>
+
+    <p>
+        Welcome, <strong>@Model.UserName</strong>
+    </p>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="alert alert-info">
+            Your cart is empty.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+
+                        <td>
+                            @item.ProductName
+                        </td>
+
+                        <td>
+                            @item.Price
+                        </td>
+
+                        <td>
+                            <form asp-action="Decrease"
+                                  method="post"
+                                  style="display:inline">
+
+                                <input type="hidden"
+                                       name="itemId"
+                                       value="@item.Id" />
+
+                                <button type="submit"
+                                        class="btn btn-sm btn-secondary">
+                                    -
+                                </button>
+
+                            </form>
+
+                            <span class="mx-2">
+                                @item.Quantity
+                            </span>
+
+                            <form asp-action="Increase"
+                                  method="post"
+                                  style="display:inline">
+
+                                <input type="hidden"
+                                       name="itemId"
+                                       value="@item.Id" />
+
+                                <button type="submit"
+                                        class="btn btn-sm btn-secondary">
+                                    +
+                                </button>
+
+                            </form>
+                        </td>
+
+                        <td>
+                            @item.Total
+                        </td>
+
+                        <td>
+                            <form asp-action="RemoveItem"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="itemId"
+                                       value="@item.Id" />
+
+                                <button type="submit"
+                                        class="btn btn-danger">
+                                    Remove
+                                </button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+</div>
