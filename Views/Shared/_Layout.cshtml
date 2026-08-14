@@ -6,12 +6,234 @@
     <title>@ViewData["Title"] - E_commerce_iti</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/E_commerce_iti.styles.css" asp-append-version="true" />
+
+    <style>
+            :root {
+                --primary-color: #6d1f2a;
+                --primary-dark: #4f1620;
+                --primary-light: #8a3540;
+                --background-color: #faf7f2;
+                --surface-color: #ffffff;
+                --secondary-surface: #f2ece3;
+                --text-color: #1c1a19;
+                --muted-text: #6b6560;
+                --border-color: #e6dfd5;
+                --shadow-soft: 0 2px 10px rgba(28, 26, 25, 0.05);
+                --shadow-medium: 0 8px 24px rgba(28, 26, 25, 0.08);
+                --radius-md: 10px;
+                --radius-lg: 16px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 700;
+                color: var(--text-color);
+                letter-spacing: -0.01em;
+            }
+
+            a {
+                color: var(--primary-color);
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: var(--primary-dark);
+            }
+
+            /* ---------- Navbar ---------- */
+            .site-navbar {
+                background-color: var(--surface-color) !important;
+                border-bottom: 1px solid var(--border-color) !important;
+                box-shadow: none !important;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .site-navbar .navbar-brand {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 700;
+                font-size: 1.4rem;
+                color: var(--text-color) !important;
+                letter-spacing: 0.02em;
+            }
+
+            .site-navbar .nav-link {
+                color: var(--text-color) !important;
+                font-weight: 500;
+                font-size: 0.95rem;
+                padding: 0.5rem 1rem !important;
+                position: relative;
+                transition: color 0.2s ease;
+            }
+
+            .site-navbar .nav-link:hover {
+                color: var(--primary-color) !important;
+            }
+
+            .site-navbar .nav-item form {
+                margin: 0;
+            }
+
+            .site-navbar .nav-item form button {
+                background: none;
+                border: none;
+                color: var(--text-color);
+                font-weight: 500;
+                font-size: 0.95rem;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                transition: color 0.2s ease;
+            }
+
+            .site-navbar .nav-item form button:hover {
+                color: var(--primary-color);
+            }
+
+            .navbar-toggler {
+                border-color: var(--border-color) !important;
+            }
+
+            .navbar-toggler:focus {
+                box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.15) !important;
+            }
+
+            /* ---------- Main content ---------- */
+            .site-main-wrapper {
+                flex: 1 0 auto;
+                max-width: 1200px;
+                width: 100%;
+                margin: 0 auto;
+                padding: 2.5rem 1.5rem 3.5rem;
+            }
+
+            /* ---------- Footer ---------- */
+            .site-footer {
+                flex-shrink: 0;
+                background-color: var(--text-color);
+                color: rgba(255, 255, 255, 0.7) !important;
+                border-top: none !important;
+                padding: 1.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .site-footer a {
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+            }
+
+            .site-footer a:hover {
+                color: #ffffff;
+            }
+
+            /* ---------- Buttons (global) ---------- */
+            .btn-primary {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                font-weight: 500;
+                border-radius: var(--radius-md);
+                padding: 0.6rem 1.4rem;
+                transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+            }
+
+            .btn-primary:hover, .btn-primary:focus {
+                background-color: var(--primary-dark);
+                border-color: var(--primary-dark);
+            }
+
+            .btn-outline-secondary,
+            .btn-secondary {
+                background-color: transparent;
+                border-color: var(--border-color);
+                color: var(--text-color);
+                font-weight: 500;
+                border-radius: var(--radius-md);
+                padding: 0.6rem 1.4rem;
+                transition: all 0.2s ease;
+            }
+
+            .btn-outline-secondary:hover,
+            .btn-secondary:hover {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                color: #fff;
+            }
+
+            /* ---------- Forms (global baseline) ---------- */
+            .form-control, .form-select {
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-md);
+                padding: 0.6rem 0.85rem;
+                background-color: var(--surface-color);
+                color: var(--text-color);
+            }
+
+            .form-control:focus, .form-select:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.12);
+            }
+
+            /* ---------- Cards (global baseline) ---------- */
+            .card {
+                background-color: var(--surface-color);
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-soft);
+                transition: box-shadow 0.2s ease, transform 0.2s ease;
+            }
+
+            .card:hover {
+                box-shadow: var(--shadow-medium);
+            }
+
+            /* ---------- Tables (global baseline) ---------- */
+            .table {
+                background-color: var(--surface-color);
+            }
+
+            .table thead th {
+                border-bottom: 1px solid var(--border-color);
+                color: var(--muted-text);
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.78rem;
+                letter-spacing: 0.04em;
+            }
+
+            .table td, .table th {
+                border-color: var(--border-color);
+                vertical-align: middle;
+            }
+
+            .table-hover tbody tr:hover {
+                background-color: var(--secondary-surface);
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light site-navbar mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">E_commerce_iti</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,25 +242,55 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+
+                        <li class="nav-item align-content-center">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item align-content-center">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">
+                                        Admin Dashboard
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <form class="nav-link text-dark" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item align-content-center">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">
+                                    Login
+                                </a>
+                            </li>
+                            <li class="nav-item align-content-center">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">
+                                    Register
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="site-main-wrapper">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="site-footer">
+        <div class="container-fluid">
             &copy; 2026 - E_commerce_iti - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

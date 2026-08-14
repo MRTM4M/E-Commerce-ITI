@@ -93,15 +93,26 @@ namespace E_commerce_iti
             );
             //adding identity services to the project +
             //default identity configuration for ApplicationUser
-            //and IdentityRole<int> with EntityFramework stores + its ui
+            //and IdentityRole<int> with EntityFramework stores + token providers
             builder.Services
-            .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole<int>>()
-            .AddEntityFrameworkStores<ECommerceDB>();
+            .AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+            {
+                // User settings
+                options.User.RequireUniqueEmail = true;
+
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 6;
+
+                // Sign-in settings
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+            .AddEntityFrameworkStores<ECommerceDB>()
+            .AddDefaultTokenProviders();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            //add defult services for razor pages
-            builder.Services.AddRazorPages();
+            
 
             var app = builder.Build();
             await AddRoles(app);
@@ -123,7 +134,7 @@ namespace E_commerce_iti
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapRazorPages();
+           
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",

@@ -43,12 +43,11 @@ namespace E_commerce_iti.Data
                 await userManager.DeleteAsync(user);
             }
 
-            // Create Mahmoud
             var mahmoud = new ApplicationUser
             {
                 FName = "Mahmoud",
                 LName = "Helmy",
-                UserName = "mahmoud",
+                UserName = "mahmoud@example.com",
                 Email = "mahmoud@example.com",
                 PhoneNumber = "01000000000",
                 CreatedAt = DateTime.UtcNow.AddDays(-30)
@@ -66,12 +65,13 @@ namespace E_commerce_iti.Data
                 );
             }
 
-            // Create Ahmed
+            await userManager.AddToRoleAsync(mahmoud, "Customer");
+
             var ahmed = new ApplicationUser
             {
                 FName = "Ahmed",
                 LName = "Ali",
-                UserName = "ahmed",
+                UserName = "ahmed@example.com",
                 Email = "ahmed@example.com",
                 PhoneNumber = "01111111111",
                 CreatedAt = DateTime.UtcNow.AddDays(-20)
@@ -89,12 +89,13 @@ namespace E_commerce_iti.Data
                 );
             }
 
-            // Create Sara
+            await userManager.AddToRoleAsync(ahmed, "Customer");
+
             var sara = new ApplicationUser
             {
                 FName = "Sara",
                 LName = "Mohamed",
-                UserName = "sara",
+                UserName = "sara@example.com",
                 Email = "sara@example.com",
                 PhoneNumber = "01222222222",
                 CreatedAt = DateTime.UtcNow.AddDays(-10)
@@ -111,6 +112,8 @@ namespace E_commerce_iti.Data
                     string.Join(", ", result.Errors.Select(e => e.Description))
                 );
             }
+
+            await userManager.AddToRoleAsync(sara, "Customer");
 
             // =========================
             // Addresses
