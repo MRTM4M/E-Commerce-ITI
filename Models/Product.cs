@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace E_Commerce_iti.Models
 {
     public class Product
