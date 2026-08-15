@@ -1,11 +1,13 @@
 ﻿using E_commerce_iti.Enum;
+ 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+ 
 
 namespace E_commerce_iti.Models
 {
     public class Order
     {
+ 
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -34,5 +36,6 @@ namespace E_commerce_iti.Models
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
         public ApplicationUser User { get; set; }
+ 
     }
 }

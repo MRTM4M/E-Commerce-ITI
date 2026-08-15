@@ -1,4 +1,5 @@
 ﻿
+ 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,4 +24,5 @@ namespace E_commerce_iti.Models
 
         public Product Product { get; set; }
     }
+ 
 }

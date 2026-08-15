@@ -1,12 +1,21 @@
+ 
+ 
+ 
+ 
 ﻿using E_commerce_iti.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+ 
 
 namespace E_commerce_iti.Data
 {
     public class ECommerceDB : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
+ 
+        
+
+         
         public ECommerceDB(DbContextOptions<ECommerceDB> options)
             : base(options)
         {
@@ -135,5 +144,6 @@ namespace E_commerce_iti.Data
                 .Property(oi => oi.UnitPrice)
                 .HasPrecision(18, 2);
         }
+ 
     }
 }

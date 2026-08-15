@@ -1,7 +1,10 @@
+ 
+ 
 using E_commerce_iti.Data;
 using E_commerce_iti.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+ 
 
 namespace E_commerce_iti
 {
@@ -83,6 +86,7 @@ namespace E_commerce_iti
         public static async Task Main(string[] args)
             {
             var builder = WebApplication.CreateBuilder(args);
+             
 
             //connection string for database on hold, uncomment the following lines to use it
 
