@@ -1,23 +1,41 @@
 ﻿using E_commerce_iti.Enum;
+ 
+using System.ComponentModel.DataAnnotations;
+ 
 
 namespace E_commerce_iti.Models
 {
     public class Order
     {
+ 
+        [Key]
         public int Id { get; set; }
+        public int UserId { get; set; }
 
+        [Required]
         public DateTime OrderDate { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal TotalPrice { get; set; }
 
+        [Required]
         public OrderStatus Status { get; set; }
 
-        public string ShippingCity { get; set; } = null!;
+        [Required]
+        [StringLength(100)]
+        public string ShippingCity { get; set; }
 
-        public string ShippingStreet { get; set; } = null!;
+        [Required]
+        [StringLength(200)]
+        public string ShippingStreet { get; set; }
 
-        public string ShippingCountry { get; set; } = null!;
+        [Required]
+        [StringLength(100)]
+        public string ShippingCountry { get; set; }
 
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public ApplicationUser User { get; set; }
+ 
     }
 }
