@@ -1,4 +1,5 @@
 ﻿using E_commerce_iti.Models;
+using E_commerce_iti.Services;
 using E_commerce_iti.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +10,16 @@ namespace E_commerce_iti.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly CartServices _cartServices;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            CartServices cartServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _cartServices = cartServices;
         }
 
 
@@ -48,6 +52,8 @@ namespace E_commerce_iti.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Customer");
+
+                await _cartServices.CreateCartAsync(user.Id);
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
 

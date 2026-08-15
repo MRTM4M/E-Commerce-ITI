@@ -1,12 +1,18 @@
 ﻿@model E_commerce_iti.ViewModels.CartViewModel
 
+@{
+    ViewData["Title"] = "My Cart";
+
+    var grandTotal = Model.Items.Sum(item => item.Total);
+}
+
 <div class="container mt-5">
 
-    <h1>My Cart</h1>
+    <h2 class="mb-4">My Cart</h2>
 
-    <p>
-        Welcome, <strong>@Model.UserName</strong>
-    </p>
+    <h5 class="mb-4">
+        Customer: @Model.UserName
+    </h5>
 
     @if (!Model.Items.Any())
     {
@@ -16,93 +22,133 @@
     }
     else
     {
-        <table class="table table-striped">
+        <div class="table-responsive">
 
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            <table class="table table-bordered table-hover align-middle">
 
-            <tbody>
-
-                @foreach (var item in Model.Items)
-                {
+                <thead>
                     <tr>
-
-                        <td>
-                            @item.ProductName
-                        </td>
-
-                        <td>
-                            @item.Price
-                        </td>
-
-                        <td>
-                            <form asp-action="Decrease"
-                                  method="post"
-                                  style="display:inline">
-
-                                <input type="hidden"
-                                       name="itemId"
-                                       value="@item.Id" />
-
-                                <button type="submit"
-                                        class="btn btn-sm btn-secondary">
-                                    -
-                                </button>
-
-                            </form>
-
-                            <span class="mx-2">
-                                @item.Quantity
-                            </span>
-
-                            <form asp-action="Increase"
-                                  method="post"
-                                  style="display:inline">
-
-                                <input type="hidden"
-                                       name="itemId"
-                                       value="@item.Id" />
-
-                                <button type="submit"
-                                        class="btn btn-sm btn-secondary">
-                                    +
-                                </button>
-
-                            </form>
-                        </td>
-
-                        <td>
-                            @item.Total
-                        </td>
-
-                        <td>
-                            <form asp-action="RemoveItem"
-                                  method="post">
-
-                                <input type="hidden"
-                                       name="itemId"
-                                       value="@item.Id" />
-
-                                <button type="submit"
-                                        class="btn btn-danger">
-                                    Remove
-                                </button>
-
-                            </form>
-                        </td>
-
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
                     </tr>
-                }
+                </thead>
 
-            </tbody>
+                <tbody>
 
-        </table>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.ProductName
+                            </td>
+
+                            <td>
+                                @item.Price.ToString("C")
+                            </td>
+
+                            <td>
+
+                                <div class="d-flex align-items-center gap-2">
+
+                                    <!-- Decrease -->
+                                    <form asp-controller="Cart"
+                                          asp-action="Decrease"
+                                          method="post">
+
+                                        <input type="hidden"
+                                               name="itemId"
+                                               value="@item.Id" />
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-secondary">
+                                            -
+                                        </button>
+
+                                    </form>
+
+
+                                    <span>
+                                        @item.Quantity
+                                    </span>
+
+
+                                    <!-- Increase -->
+                                    <form asp-controller="Cart"
+                                          asp-action="Increase"
+                                          method="post">
+
+                                        <input type="hidden"
+                                               name="itemId"
+                                               value="@item.Id" />
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-secondary">
+                                            +
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+                                @item.Total.ToString("C")
+                            </td>
+
+                            <td>
+
+                                <form asp-controller="Cart"
+                                      asp-action="RemoveItem"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="itemId"
+                                           value="@item.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        Remove
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Cart Summary -->
+
+        <div class="card mt-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h5>Grand Total</h5>
+
+                    <h5>
+                        @grandTotal.ToString("C")
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
     }
+
 </div>

@@ -1,0 +1,66 @@
+﻿@model ICollection<E_commerce_iti.ViewModels.AccountViewModels>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>All Users</h2>
+
+    <div>
+        <a asp-action="UsersActive" class="btn btn-success">
+            Active Users
+        </a>
+
+        <a asp-action="UsersInactive" class="btn btn-secondary">
+            Inactive Users
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Fname</td>
+                        <td>@user.Lname</td>
+                        <td>@user.EmailAddress</td>
+
+                        <td>
+                            @if (user.IsActive)
+                            {
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

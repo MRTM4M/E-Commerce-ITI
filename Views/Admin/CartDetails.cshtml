@@ -1,0 +1,121 @@
+﻿@model E_commerce_iti.ViewModels.CartViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2>Cart Details</h2>
+        <p class="text-muted mb-0">
+            Cart #@Model.Id
+        </p>
+    </div>
+
+    <a asp-action="Carts"
+       class="btn btn-outline-secondary">
+        Back to Carts
+    </a>
+
+</div>
+
+<!-- Cart Information -->
+
+<div class="card mb-4">
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <strong>Cart ID</strong>
+                <p>#@Model.Id</p>
+            </div>
+
+            <div class="col-md-4">
+                <strong>User ID</strong>
+                <p>@Model.UserId</p>
+            </div>
+
+            <div class="col-md-4">
+                <strong>Customer</strong>
+                <p>@Model.UserName</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Cart Items -->
+
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="mb-0">Cart Items</h5>
+    </div>
+
+    <div class="card-body">
+
+        @if (!Model.Items.Any())
+        {
+            <div class="alert alert-info mb-0">
+                This cart is empty.
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Product ID</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.ProductName
+                            </td>
+
+                            <td>
+                                @item.ProductId
+                            </td>
+
+                            <td>
+                                @item.Price.ToString("C")
+                            </td>
+
+                            <td>
+                                @item.Quantity
+                            </td>
+
+                            <td>
+                                <strong>
+                                    @item.Total.ToString("C")
+                                </strong>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+
+    </div>
+
+</div>

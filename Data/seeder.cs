@@ -32,6 +32,32 @@ namespace E_commerce_iti.Data
 
             await context.SaveChangesAsync();
 
+
+            // =========================
+            // Reset Identity
+            // =========================
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('OrderItems', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('Orders', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('CartItems', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('Carts', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('Products', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('Categories', RESEED, 0)");
+
+            await context.Database.ExecuteSqlRawAsync(
+                "DBCC CHECKIDENT ('Addresses', RESEED, 0)");
+
             // =========================
             // Users
             // =========================
@@ -42,6 +68,8 @@ namespace E_commerce_iti.Data
             {
                 await userManager.DeleteAsync(user);
             }
+            await context.Database.ExecuteSqlRawAsync(
+            "DBCC CHECKIDENT ('AspNetUsers', RESEED, 0)");
 
             var mahmoud = new ApplicationUser
             {
@@ -50,7 +78,8 @@ namespace E_commerce_iti.Data
                 UserName = "mahmoud@example.com",
                 Email = "mahmoud@example.com",
                 PhoneNumber = "01000000000",
-                CreatedAt = DateTime.UtcNow.AddDays(-30)
+                CreatedAt = DateTime.UtcNow.AddDays(-30),
+                IsActive = true
             };
 
             var result = await userManager.CreateAsync(
@@ -74,7 +103,8 @@ namespace E_commerce_iti.Data
                 UserName = "ahmed@example.com",
                 Email = "ahmed@example.com",
                 PhoneNumber = "01111111111",
-                CreatedAt = DateTime.UtcNow.AddDays(-20)
+                CreatedAt = DateTime.UtcNow.AddDays(-20),
+                IsActive = true
             };
 
             result = await userManager.CreateAsync(
@@ -98,7 +128,8 @@ namespace E_commerce_iti.Data
                 UserName = "sara@example.com",
                 Email = "sara@example.com",
                 PhoneNumber = "01222222222",
-                CreatedAt = DateTime.UtcNow.AddDays(-10)
+                CreatedAt = DateTime.UtcNow.AddDays(-10),
+                IsActive = true
             };
 
             result = await userManager.CreateAsync(
