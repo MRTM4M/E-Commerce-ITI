@@ -1,0 +1,68 @@
+﻿@model E_commerce_iti.ViewModels.OrderIndexViewModel
+
+@{
+    ViewData["Title"] = "Delete Order";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Delete Order</h1>
+        </div>
+    </div>
+
+    <div class="warning-banner">
+        Are you sure you want to delete this order? This action cannot be undone.
+    </div>
+
+    <div class="surface-card mb-4">
+        <div class="surface-card-body">
+
+            <div class="row">
+
+                <div class="col-sm-6 info-block">
+                    <span class="info-label">Order Id</span>
+                    <p class="info-value">@Model.Id</p>
+                </div>
+
+                <div class="col-sm-6 info-block">
+                    <span class="info-label">Order Date</span>
+                    <p class="info-value">@Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</p>
+                </div>
+
+                <div class="col-sm-6 info-block">
+                    <span class="info-label">Status</span>
+                    <p class="info-value">@Model.Status</p>
+                </div>
+
+                <div class="col-sm-6 info-block">
+                    <span class="info-label">Shipping City</span>
+                    <p class="info-value">@Model.ShippingCity</p>
+                </div>
+
+                <div class="col-sm-6 info-block">
+                    <span class="info-label">Total Price</span>
+                    <p class="info-value order-total">@Model.TotalPrice.ToString("C")</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="admin-form-actions">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+
+</div>
+
+<style>
+    .order-total {
+        font-weight: 700;
+        color: var(--primary-color, #6d1f2a);
+    }
+</style>

@@ -85,7 +85,6 @@ namespace E_commerce_iti
         public static async Task Main(string[] args)
             {
             var builder = WebApplication.CreateBuilder(args);
-
             //connection string for database on hold,
             //uncomment the following lines to use it
 
@@ -116,9 +115,14 @@ namespace E_commerce_iti
             .AddEntityFrameworkStores<ECommerceDB>()
             .AddDefaultTokenProviders();
             // Add services to the container.
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<UserServices>();
             builder.Services.AddScoped<CartServices>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
 
             var app = builder.Build();
             await AddRoles(app);
@@ -127,24 +131,28 @@ namespace E_commerce_iti
             await MakeUserAdmin(app, "mahmoud@example.com");
             // Seed the database with initial data
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
-                {
-                    app.UseExceptionHandler("/Home/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                    app.UseHsts();
-                }
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+
+
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
            
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Product}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
 

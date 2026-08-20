@@ -33,6 +33,7 @@ namespace E_commerce_iti.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddItem(int productId)
         {
             var userId = _userManager.GetUserId(User);

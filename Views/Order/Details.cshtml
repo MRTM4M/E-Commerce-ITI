@@ -1,0 +1,110 @@
+﻿@model E_commerce_iti.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="page-container-lg">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Order</span>
+            <h1 class="page-title">Order #@Model.Id</h1>
+        </div>
+    </div>
+
+    <div class="surface-card mb-4">
+        <div class="surface-card-body">
+
+            <div class="row">
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Order Date</span>
+                    <p class="info-value">@Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Status</span>
+                    <p class="info-value">
+                        <span class="status-pill @(Model.Status == E_commerce_iti.Enum.OrderStatus.Pending
+                                                                                    ? "status-pill-pending"
+                                                                                    : Model.Status == E_commerce_iti.Enum.OrderStatus.Cancelled
+                                                                                        ? "status-pill-cancelled"
+                                                                                        : "status-pill-active")">
+                            @Model.Status
+                        </span>
+                    </p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Total Price</span>
+                    <p class="info-value order-total">@Model.TotalPrice.ToString("C")</p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">User Id</span>
+                    <p class="info-value">@Model.UserId</p>
+                </div>
+
+                <div class="col-md-8 info-block">
+                    <span class="info-label">Shipping Address</span>
+                    <p class="info-value">@Model.ShippingStreet, @Model.ShippingCity, @Model.ShippingCountry</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="surface-card">
+
+        <div class="table-card-header">
+            <h5>Order Items</h5>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle styled-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                            <td class="admin-item-total">@item.TotalPrice.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="admin-form-actions mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+
+</div>
+
+<style>
+    .order-total {
+        font-weight: 700;
+        color: var(--primary-color, #6d1f2a);
+    }
+
+    .admin-item-total {
+        font-weight: 600;
+        color: var(--primary-color, #6d1f2a);
+    }
+</style>

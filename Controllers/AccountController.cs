@@ -57,7 +57,7 @@ namespace E_commerce_iti.Controllers
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Product");
             }
 
             foreach (var error in result.Errors)
@@ -100,7 +100,7 @@ namespace E_commerce_iti.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Product");
             }
 
             ModelState.AddModelError("", "Invalid email or password.");
@@ -116,7 +116,7 @@ namespace E_commerce_iti.Controllers
         {
             await _signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
     }
 }

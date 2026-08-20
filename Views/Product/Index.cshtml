@@ -1,34 +1,435 @@
-﻿@model IEnumerable<E_commerce_iti.Models.Product>
-<h2>Products</h2>
-<a asp-action="Create">Create New Product</a>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
+﻿@model E_commerce_iti.ViewModels.ShopViewModel
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="shop-page">
+
+    <!-- ========================= -->
+    <!-- Header -->
+    <!-- ========================= -->
+
+    <div class="shop-header">
+        <span class="eyebrow">Shop</span>
+        <h1 class="page-title">Our Shop</h1>
+        <p class="shop-subtitle">
+            Find the products you're looking for
+        </p>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Search -->
+    <!-- ========================= -->
+
+    <form asp-controller="Product"
+          asp-action="Index"
+          method="get"
+          class="shop-search-form">
+
+        <div class="shop-search-group">
+
+            <input type="text"
+                   name="search"
+                   value="@Model.Search"
+                   class="form-control shop-search-input"
+                   placeholder="Search products..." />
+
+            @if (Model.CategoryId.HasValue)
+            {
+                <input type="hidden"
+                       name="categoryId"
+                       value="@Model.CategoryId.Value" />
+            }
+
+            <button type="submit"
+                    class="btn btn-primary shop-search-btn">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <!-- ========================= -->
+    <!-- Categories -->
+    <!-- ========================= -->
+
+    <div class="shop-categories">
+
+        <h5 class="shop-section-label">
+            Categories
+        </h5>
+
+        <div class="shop-category-list">
+
+            <!-- All Products -->
+
+            <a asp-controller="Product"
+               asp-action="Index"
+               asp-route-search="@Model.Search"
+               class="category-pill @(Model.CategoryId == null
+                                                          ? "category-pill-active"
+                                                          : "")">
+
+                All
+
+            </a>
+
+
+            <!-- Categories -->
+            @foreach (var category in Model.Categories)
+            {
+                <a asp-controller="Product"
+                   asp-action="Index"
+                   asp-route-search="@Model.Search"
+                   asp-route-categoryId="@category.Id"
+                   class="category-pill @(Model.CategoryId == category.Id
+                                                                      ? "category-pill-active"
+                                                                      : "")">
+
+                    @category.Name
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Products Header -->
+    <!-- ========================= -->
+
+    <div class="shop-products-header">
+
+        <h2 class="shop-products-title">
+            Products
+        </h2>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Search))
         {
-            <tr>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Image</td>
-                <td>@product.Category?.Name</td>
-                <td>@product.Stock</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@product.Id">Details</a>
-                    |
-                    <a asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                    |
-                    <a asp-action="Delete" asp-route-id="@product.Id">Delete</a>
-                </td>
-            </tr>
+            <span class="shop-search-note">
+
+                Search results for:
+
+                <strong>
+                    @Model.Search
+                </strong>
+
+            </span>
         }
-    </tbody>
-</table>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Products -->
+    <!-- ========================= -->
+    @if (Model.Products == null || !Model.Products.Any())
+    {
+        <div class="empty-state">
+            No products found.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+
+                    <div class="product-card h-100">
+
+
+                        <!-- Product Image -->
+
+                        <div class="product-card-image-wrap">
+                            <img src="~/images/@product.Image"
+                                 class="product-card-image"
+                                 alt="@product.Name" />
+                        </div>
+
+
+                        <!-- Card Body -->
+
+                        <div class="product-card-body">
+
+
+                            <!-- Category -->
+
+                            <p class="product-card-category">
+                                @product.CategoryName
+                            </p>
+
+
+                            <!-- Product Name -->
+
+                            <h5 class="product-card-title">
+                                @product.Name
+                            </h5>
+
+
+                            <!-- Description -->
+
+                            <p class="product-card-desc">
+                                @product.Description
+                            </p>
+
+
+                            <!-- Price -->
+
+                            <h5 class="product-card-price">
+                                @product.Price.ToString("C")
+                            </h5>
+
+
+                            <!-- Stock -->
+                            @if (product.Stock > 0)
+                            {
+                                <p class="product-card-stock product-card-stock-in">
+                                    In Stock
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="product-card-stock product-card-stock-out">
+                                    Out of Stock
+                                </p>
+                            }
+
+
+                            <!-- Buttons -->
+
+                            <div class="product-card-actions">
+
+
+                                <!-- Details -->
+
+                                <a asp-controller="Product"
+                                   asp-action="Details"
+                                   asp-route-id="@product.Id"
+                                   class="btn btn-outline-secondary w-100 mb-2">
+
+                                    View Details
+
+                                </a>
+
+
+                                <!-- Add To Cart -->
+                                @if (product.Stock > 0)
+                                {
+                                    <form asp-controller="Cart"
+                                          asp-action="AddItem"
+                                          method="post">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="productId"
+                                               value="@product.Id" />
+
+                                        <button type="submit"
+                                                class="btn btn-primary w-100">
+
+                                            Add to Cart
+
+                                        </button>
+
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button type="button"
+                                            class="btn btn-secondary w-100"
+                                            disabled>
+
+                                        Out of Stock
+
+                                    </button>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+
+    <!-- ========================= -->
+    <!-- Pagination -->
+    <!-- ========================= -->
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Product pages" class="shop-pagination-nav">
+
+            <ul class="pagination justify-content-center">
+
+
+                <!-- Previous -->
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link"
+                           asp-controller="Product"
+                           asp-action="Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-categoryId="@Model.CategoryId"
+                           asp-route-page="@(Model.CurrentPage - 1)">
+
+                            Previous
+
+                        </a>
+
+                    </li>
+                }
+
+
+                <!-- Page Numbers -->
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                        <a class="page-link"
+                           asp-controller="Product"
+                           asp-action="Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-categoryId="@Model.CategoryId"
+                           asp-route-page="@i">
+
+                            @i
+
+                        </a>
+
+                    </li>
+                }
+
+
+                <!-- Next -->
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link"
+                           asp-controller="Product"
+                           asp-action="Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-categoryId="@Model.CategoryId"
+                           asp-route-page="@(Model.CurrentPage + 1)">
+
+                            Next
+
+                        </a>
+
+                    </li>
+                }
+
+            </ul>
+
+        </nav>
+    }
+
+</div>
+
+<style>
+    .shop-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 0 3rem;
+    }
+
+    .shop-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .shop-subtitle {
+        color: var(--muted-text, #6b6560);
+        margin: 0;
+    }
+
+    .shop-search-form {
+        max-width: 560px;
+        margin: 0 auto 2.5rem;
+    }
+
+    .shop-search-group {
+        display: flex;
+    }
+
+    .shop-search-input {
+        border-radius: var(--radius-md, 10px) 0 0 var(--radius-md, 10px) !important;
+        border-right: none !important;
+    }
+
+    .shop-search-btn {
+        border-radius: 0 var(--radius-md, 10px) var(--radius-md, 10px) 0 !important;
+    }
+
+    .shop-categories {
+        margin-bottom: 2.5rem;
+    }
+
+    .shop-section-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-color, #1c1a19);
+        margin-bottom: 0.9rem;
+    }
+
+    .shop-category-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .shop-products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .shop-products-title {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .shop-search-note {
+        color: var(--muted-text, #6b6560);
+        font-size: 0.9rem;
+    }
+
+    .shop-pagination-nav {
+        margin-top: 2.5rem;
+    }
+
+    @@media (max-width: 576px) {
+        .shop-search-group {
+            flex-direction: column;
+        }
+
+        .shop-search-input {
+            border-radius: var(--radius-md, 10px) !important;
+            border-right: 1px solid var(--border-color, #e6dfd5) !important;
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-search-btn {
+            border-radius: var(--radius-md, 10px) !important;
+        }
+    }
+</style>

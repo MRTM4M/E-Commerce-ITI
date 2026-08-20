@@ -4,49 +4,106 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Active Users</h2>
+<div class="page-header-row">
+    <div>
+        <span class="eyebrow">Admin</span>
+        <h2 class="page-title">Active Users</h2>
+        <p class="page-subtext">@Model.Count active @(Model.Count == 1 ? "user" : "users")</p>
+    </div>
 
     <a asp-action="Users"
-       class="btn btn-outline-primary">
+       class="btn btn-outline-secondary">
         All Users
     </a>
 </div>
 
-<div class="card">
-    <div class="card-body">
-
-        <table class="table table-hover align-middle">
-
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach (var user in Model)
-                {
-                    <tr>
-                        <td>@user.Fname</td>
-                        <td>@user.Lname</td>
-                        <td>@user.EmailAddress</td>
-
-                        <td>
-                            <span class="badge bg-success">
-                                Active
-                            </span>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
-
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        No active users right now.
     </div>
-</div>
+}
+else
+{
+    <div class="surface-card">
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle styled-table">
+
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <span class="user-avatar">@user.Fname.Substring(0, 1)@user.Lname.Substring(0, 1)</span>
+                                    <span class="user-name">@user.Fname @user.Lname</span>
+                                </div>
+                            </td>
+
+                            <td>@user.EmailAddress</td>
+
+                            <td>
+                                <span class="status-pill status-pill-active">
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+}
+
+<style>
+    .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+    }
+
+    .user-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background-color: rgba(109, 31, 42, 0.1);
+        color: var(--primary-color, #6d1f2a);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    .user-name {
+        font-weight: 500;
+        color: var(--text-color, #1c1a19);
+    }
+
+    .status-pill-active {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        background-color: rgba(46, 125, 79, 0.1);
+        color: #2e7d4f;
+        border: 1px solid rgba(46, 125, 79, 0.18);
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+</style>

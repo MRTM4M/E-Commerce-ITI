@@ -197,6 +197,22 @@ namespace E_commerce_iti.Services
             return true;
         }
 
-        
+        public async Task<bool> ClearCartAsync(int userId)
+        {
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+                return false;
+
+            _context.CartItems.RemoveRange(cart.CartItems);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
     }
 }

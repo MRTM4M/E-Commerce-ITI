@@ -4,19 +4,22 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Inactive Users</h2>
+<div class="page-header-row">
+    <div>
+        <span class="eyebrow">Admin</span>
+        <h2 class="page-title">Inactive Users</h2>
+    </div>
 
     <a asp-action="Users"
-       class="btn btn-outline-primary">
+       class="btn btn-outline-secondary">
         All Users
     </a>
 </div>
 
-<div class="card">
-    <div class="card-body">
+<div class="surface-card">
+    <div class="table-responsive">
 
-        <table class="table table-hover align-middle">
+        <table class="table table-hover align-middle styled-table">
 
             <thead>
                 <tr>
@@ -37,7 +40,7 @@
                         <td>@user.EmailAddress</td>
 
                         <td>
-                            <span class="badge bg-secondary">
+                            <span class="status-pill status-pill-inactive">
                                 Inactive
                             </span>
                         </td>
@@ -50,3 +53,17 @@
 
     </div>
 </div>
+
+<style>
+    .status-pill-inactive {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        background-color: rgba(180, 120, 30, 0.1);
+        color: #b4781e;
+        border: 1px solid rgba(180, 120, 30, 0.18);
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+</style>

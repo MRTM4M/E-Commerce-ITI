@@ -1,0 +1,162 @@
+﻿@model E_commerce_iti.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Category Details</h1>
+            <p class="page-subtext">
+                @Model.Products?.Count() products in this category
+            </p>
+        </div>
+    </div>
+
+    <!-- Category Information -->
+    <div class="surface-card mb-4">
+        <div class="surface-card-body">
+
+            <div class="row">
+
+                <div class="col-sm-4 info-block">
+                    <span class="info-label">Id</span>
+                    <p class="info-value">@Model.Id</p>
+                </div>
+
+                <div class="col-sm-4 info-block">
+                    <span class="info-label">Name</span>
+                    <p class="info-value">@Model.Name</p>
+                </div>
+
+                <div class="col-sm-4 info-block">
+                    <span class="info-label">Products</span>
+                    <p class="info-value">
+                        @Model.Products?.Count()
+                    </p>
+                </div>
+
+                <div class="col-12 info-block mt-3">
+                    <span class="info-label">Description</span>
+
+                    <p class="info-value">
+                        @(string.IsNullOrWhiteSpace(Model.Description)
+                            ? "No description available."
+                            : Model.Description)
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Products -->
+    <div class="surface-card">
+
+        <div class="surface-card-body">
+
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Products</span>
+                    <h3 class="section-title">Products in this Category</h3>
+                </div>
+            </div>
+
+            @if (Model.Products == null || !Model.Products.Any())
+            {
+                <div class="empty-state">
+                    No products in this category yet.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle styled-table">
+
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @product.Id
+                                    </td>
+
+                                    <td>
+                                        <span class="product-name">
+                                            @product.Name
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @product.Price.ToString("C")
+                                    </td>
+
+                                    <td>
+                                        @product.Stock
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+
+    <!-- Actions -->
+    <div class="admin-form-actions mt-3">
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-primary">
+            Edit
+        </a>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+    .section-header {
+        margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+        margin: 0.25rem 0 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+    }
+
+    .product-name {
+        font-weight: 500;
+    }
+</style>

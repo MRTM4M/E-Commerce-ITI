@@ -2,30 +2,96 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Dashboard</h1>
+<div class="page-header-row">
+    <div>
+        <span class="eyebrow">Admin</span>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtext">Manage users, products, carts and categories</p>
+    </div>
+</div>
 
 <div class="row">
 
-    <div class="col-md-4">
-        <div class="card p-4">
-            <h4>Users</h4>
-
-            <a asp-action="Users"
-               class="btn btn-primary">
-                View Users
-            </a>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card dashboard-card h-100">
+            <div class="card-body dashboard-card-body">
+                <h5 class="dashboard-card-title">Users</h5>
+                <p class="dashboard-card-text">View and manage registered users.</p>
+                <div class="dashboard-card-actions">
+                    <a asp-controller="Admin" asp-action="Users" class="btn btn-primary btn-sm">All Users</a>
+                    <a asp-controller="Admin" asp-action="UsersActive" class="btn btn-outline-secondary btn-sm">Active</a>
+                    <a asp-controller="Admin" asp-action="UsersInactive" class="btn btn-outline-secondary btn-sm">Inactive</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card p-4">
-            <h4>Carts</h4>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card dashboard-card h-100">
+            <div class="card-body dashboard-card-body">
+                <h5 class="dashboard-card-title">Products</h5>
+                <p class="dashboard-card-text">Browse, create or edit products available in the store.</p>
+                <div class="dashboard-card-actions">
+                    <a asp-controller="Admin" asp-action="Products" class="btn btn-primary btn-sm">View Products</a>
+                    <a asp-controller="Admin" asp-action="CreateProduct" class="btn btn-outline-secondary btn-sm">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <a asp-action="Carts"
-               class="btn btn-primary">
-                View Carts
-            </a>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card dashboard-card h-100">
+            <div class="card-body dashboard-card-body">
+                <h5 class="dashboard-card-title">Carts</h5>
+                <p class="dashboard-card-text">Inspect user carts and cart details.</p>
+                <div class="dashboard-card-actions">
+                    <a asp-controller="Admin" asp-action="Carts" class="btn btn-primary btn-sm">View Carts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card dashboard-card h-100">
+            <div class="card-body dashboard-card-body">
+                <h5 class="dashboard-card-title">Categories</h5>
+                <p class="dashboard-card-text">Manage product categories.</p>
+                <div class="dashboard-card-actions">
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-primary btn-sm">View Categories</a>
+                    <a asp-controller="Category" asp-action="Create" class="btn btn-outline-secondary btn-sm">Create</a>
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
+
+<style>
+    .dashboard-card {
+        border: 1px solid var(--border-color, #e6dfd5);
+    }
+
+    .dashboard-card-body {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .dashboard-card-title {
+        font-size: 1.15rem;
+        margin: 0 0 0.5rem;
+    }
+
+    .dashboard-card-text {
+        color: var(--muted-text, #6b6560);
+        font-size: 0.9rem;
+        flex-grow: 1;
+        margin-bottom: 1.25rem;
+    }
+
+    .dashboard-card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+</style>

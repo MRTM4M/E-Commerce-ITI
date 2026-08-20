@@ -104,7 +104,7 @@ namespace E_commerce_iti.Data
                 Email = "ahmed@example.com",
                 PhoneNumber = "01111111111",
                 CreatedAt = DateTime.UtcNow.AddDays(-20),
-                IsActive = true
+                IsActive = false
             };
 
             result = await userManager.CreateAsync(
@@ -256,7 +256,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[0].Id,
                     Name = "Women's White Sneakers",
                     Price = 75,
-                    Image = "women-white-sneakers.jpg",
+                    Image = "1.jpg",
                     Description = "Comfortable white sneakers for women",
                     Stock = 20
                 },
@@ -266,7 +266,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[0].Id,
                     Name = "Women's Running Shoes",
                     Price = 90,
-                    Image = "women-running-shoes.jpg",
+                    Image = "2.jpg",
                     Description = "Lightweight running shoes for women",
                     Stock = 15
                 },
@@ -281,7 +281,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[1].Id,
                     Name = "Men's Classic Sneakers",
                     Price = 85,
-                    Image = "men-classic-sneakers.jpg",
+                    Image = "3.jpg",
                     Description = "Classic sneakers for everyday wear",
                     Stock = 25
                 },
@@ -291,7 +291,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[1].Id,
                     Name = "Men's Leather Shoes",
                     Price = 120,
-                    Image = "men-leather-shoes.jpg",
+                    Image = "5.jpg",
                     Description = "Premium leather shoes for men",
                     Stock = 10
                 },
@@ -306,7 +306,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[2].Id,
                     Name = "Kids Colorful Sneakers",
                     Price = 45,
-                    Image = "kids-colorful-sneakers.jpg",
+                    Image = "15.jpg",
                     Description = "Colorful and comfortable sneakers for kids",
                     Stock = 30
                 },
@@ -316,7 +316,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[2].Id,
                     Name = "Kids Running Shoes",
                     Price = 50,
-                    Image = "kids-running-shoes.jpg",
+                    Image = "16.jpg",
                     Description = "Lightweight running shoes for kids",
                     Stock = 20
                 },
@@ -331,7 +331,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[3].Id,
                     Name = "Pro Running Shoes",
                     Price = 110,
-                    Image = "pro-running-shoes.jpg",
+                    Image = "14.jpg",
                     Description = "High performance shoes for running and training",
                     Stock = 18
                 },
@@ -341,7 +341,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[3].Id,
                     Name = "Training Sneakers",
                     Price = 95,
-                    Image = "training-sneakers.jpg",
+                    Image = "13.jpg",
                     Description = "Durable sneakers for sports and training",
                     Stock = 22
                 },
@@ -356,7 +356,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[4].Id,
                     Name = "Classic Casual Sneakers",
                     Price = 70,
-                    Image = "classic-casual.jpg",
+                    Image = "8.jpg",
                     Description = "Comfortable casual sneakers for everyday use",
                     Stock = 25
                 },
@@ -366,7 +366,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[4].Id,
                     Name = "Canvas Casual Shoes",
                     Price = 60,
-                    Image = "canvas-casual.jpg",
+                    Image = "9.jpg",
                     Description = "Lightweight canvas shoes for everyday wear",
                     Stock = 30
                 },
@@ -381,7 +381,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[5].Id,
                     Name = "Classic Black Heels",
                     Price = 100,
-                    Image = "black-heels.jpg",
+                    Image = "11.jpg",
                     Description = "Elegant black heels for special occasions",
                     Stock = 12
                 },
@@ -391,7 +391,7 @@ namespace E_commerce_iti.Data
                     CategoryId = categories[5].Id,
                     Name = "Elegant Red Heels",
                     Price = 115,
-                    Image = "red-heels.jpg",
+                    Image = "12.jpg",
                     Description = "Elegant red heels with a stylish design",
                     Stock = 8
                 }

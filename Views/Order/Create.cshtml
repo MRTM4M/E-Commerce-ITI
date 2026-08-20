@@ -1,0 +1,378 @@
+﻿@model E_commerce_iti.ViewModels.OrderFormViewModel
+
+@{
+    ViewData["Title"] = "Create Order";
+}
+
+<div class="page-container-lg">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Create Order</h1>
+        </div>
+    </div>
+
+    <div class="surface-card">
+        <div class="surface-card-body">
+
+            <form asp-action="Create" method="post" id="orderForm">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <!-- Order Information -->
+                <h5 class="section-heading">Order Information</h5>
+
+                <div class="row mb-4">
+
+                    <div class="col-md-4 form-group">
+                        <label asp-for="Status" class="form-label"></label>
+
+                        <select asp-for="Status"
+                                class="form-select"
+                                asp-items="Html.GetEnumSelectList<E_commerce_iti.Enum.OrderStatus>()">
+                        </select>
+
+                        <span asp-validation-for="Status"
+                              class="field-error">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- Shipping Information -->
+                <h5 class="section-heading">Shipping Information</h5>
+
+                <div class="row mb-4">
+
+                    <div class="col-md-4 form-group">
+                        <label asp-for="ShippingStreet" class="form-label"></label>
+
+                        <input asp-for="ShippingStreet"
+                               class="form-control" />
+
+                        <span asp-validation-for="ShippingStreet"
+                              class="field-error">
+                        </span>
+                    </div>
+
+
+                    <div class="col-md-4 form-group">
+                        <label asp-for="ShippingCity" class="form-label"></label>
+
+                        <input asp-for="ShippingCity"
+                               class="form-control" />
+
+                        <span asp-validation-for="ShippingCity"
+                              class="field-error">
+                        </span>
+                    </div>
+
+
+                    <div class="col-md-4 form-group">
+                        <label asp-for="ShippingCountry" class="form-label"></label>
+
+                        <input asp-for="ShippingCountry"
+                               class="form-control" />
+
+                        <span asp-validation-for="ShippingCountry"
+                              class="field-error">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- Order Items -->
+
+                <h5 class="section-heading">Order Items</h5>
+
+                <div class="order-items-table-wrap">
+                    <table class="table align-middle styled-table" id="itemsTable">
+
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @for (int i = 0; i < Model.Items.Count; i++)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        <select name="Items[@i].ProductId"
+                                                class="form-select product-select">
+
+                                            @foreach (var p in Model.AvailableProducts)
+                                            {
+                                                <option value="@p.Id"
+                                                        data-price="@p.Price">
+
+                                                    @p.Name (@p.Price.ToString("C"))
+
+                                                </option>
+                                            }
+
+                                        </select>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <input type="number"
+                                               name="Items[@i].Quantity"
+                                               class="form-control"
+                                               value="@Model.Items[i].Quantity"
+                                               min="1" />
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <!-- Read-only: price comes from the Product -->
+
+                                        <input type="text"
+                                               class="form-control unit-price"
+                                               value="0"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm remove-item">
+
+                                            Remove
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+                <button type="button"
+                        id="addItem"
+                        class="btn btn-outline-secondary mb-4">
+
+                    + Add Item
+
+                </button>
+
+
+                <div class="admin-form-actions">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        Create
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Hidden Template -->
+
+<table style="display:none;">
+
+    <tbody>
+
+        <tr id="itemRowTemplate">
+
+            <td>
+
+                <select name="Items[__index__].ProductId"
+                        class="form-select product-select">
+
+                    @foreach (var p in Model.AvailableProducts)
+                    {
+                        <option value="@p.Id"
+                                data-price="@p.Price">
+
+                            @p.Name (@p.Price.ToString("C"))
+
+                        </option>
+                    }
+
+                </select>
+
+            </td>
+
+
+            <td>
+
+                <input type="number"
+                       name="Items[__index__].Quantity"
+                       class="form-control"
+                       value="1"
+                       min="1" />
+
+            </td>
+
+
+            <td>
+
+                <input type="text"
+                       class="form-control unit-price"
+                       value="0"
+                       readonly />
+
+            </td>
+
+
+            <td>
+
+                <button type="button"
+                        class="btn btn-danger btn-sm remove-item">
+
+                    Remove
+
+                </button>
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+<style>
+    .section-heading {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-color, #1c1a19);
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color, #e6dfd5);
+    }
+
+    .order-items-table-wrap {
+        border: 1px solid var(--border-color, #e6dfd5);
+        border-radius: var(--radius-md, 10px);
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+        .order-items-table-wrap .styled-table {
+            margin-bottom: 0;
+        }
+</style>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        let itemIndex = @Model.Items.Count;
+
+
+        // Add new item
+        document.getElementById('addItem').addEventListener('click', function() {
+
+            const template =
+                document.getElementById('itemRowTemplate')
+                    .cloneNode(true);
+
+            template.removeAttribute('id');
+
+            template.innerHTML =
+                template.innerHTML.replaceAll(
+                    '__index__',
+                    itemIndex
+                );
+
+            document.querySelector('#itemsTable tbody')
+                .appendChild(template);
+
+            itemIndex++;
+
+            updatePrice(template);
+        });
+
+
+        // Remove item
+        document.querySelector('#itemsTable')
+            .addEventListener('click', function(e) {
+
+                if (e.target.classList.contains('remove-item')) {
+
+                    e.target.closest('tr').remove();
+
+                }
+
+            });
+
+
+        // Change product
+        document.addEventListener('change', function(e) {
+
+            if (e.target.classList.contains('product-select')) {
+
+                updatePrice(e.target.closest('tr'));
+
+            }
+
+        });
+
+
+        // Update displayed price
+        function updatePrice(row) {
+
+            const select =
+                row.querySelector('.product-select');
+
+            const price =
+                select.selectedOptions[0].dataset.price;
+
+            row.querySelector('.unit-price').value = price;
+
+        }
+
+
+        // Set price for existing rows
+        document.querySelectorAll('#itemsTable tbody tr')
+            .forEach(function(row) {
+
+                updatePrice(row);
+
+            });
+
+    </script>
+}

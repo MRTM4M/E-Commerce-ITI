@@ -1,0 +1,71 @@
+﻿@model E_commerce_iti.Models.Category
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Create Category</h1>
+        </div>
+    </div>
+
+    <div class="surface-card">
+        <div class="surface-card-body">
+
+            <form asp-action="Create" method="post">
+
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="Enter category name" />
+                    <span asp-validation-for="Name"
+                          class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Enter category description"></textarea>
+                    <span asp-validation-for="Description"
+                          class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="form-label"></label>
+                    <input asp-for="ImageUrl"
+                           class="form-control"
+                           placeholder="Enter image URL" />
+                    <span asp-validation-for="ImageUrl"
+                          class="field-error"></span>
+                </div>
+
+                <div class="admin-form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Create
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Back
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
