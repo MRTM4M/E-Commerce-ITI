@@ -1,0 +1,69 @@
+﻿@model ICollection<E_commerce_iti.ViewModels.AccountViewModels>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header-row">
+    <div>
+        <span class="eyebrow">Admin</span>
+        <h2 class="page-title">Inactive Users</h2>
+    </div>
+
+    <a asp-action="Users"
+       class="btn btn-outline-secondary">
+        All Users
+    </a>
+</div>
+
+<div class="surface-card">
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle styled-table">
+
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Fname</td>
+                        <td>@user.Lname</td>
+                        <td>@user.EmailAddress</td>
+
+                        <td>
+                            <span class="status-pill status-pill-inactive">
+                                Inactive
+                            </span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<style>
+    .status-pill-inactive {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        background-color: rgba(180, 120, 30, 0.1);
+        color: #b4781e;
+        border: 1px solid rgba(180, 120, 30, 0.18);
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+</style>

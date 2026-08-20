@@ -1,0 +1,105 @@
+﻿@model E_commerce_iti.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Product Details</h1>
+        </div>
+    </div>
+
+    <div class="surface-card">
+
+        <div class="surface-card-body">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="~/images/@Model.Image"
+                         alt="@Model.Name"
+                         class="img-fluid product-details-thumb" />
+                </div>
+
+                <div class="col-md-8">
+
+                    <h2 class="mb-3">@Model.Name</h2>
+
+                    <div class="row">
+                        <div class="col-sm-6 info-block">
+                            <span class="info-label">ID</span>
+                            <p class="info-value">@Model.Id</p>
+                        </div>
+
+                        <div class="col-sm-6 info-block">
+                            <span class="info-label">Category</span>
+                            <p class="info-value">@Model.CategoryName</p>
+                        </div>
+
+                        <div class="col-sm-6 info-block">
+                            <span class="info-label">Price</span>
+                            <p class="info-value">@Model.Price.ToString("C")</p>
+                        </div>
+
+                        <div class="col-sm-6 info-block">
+                            <span class="info-label">Stock</span>
+                            <p class="info-value">@Model.Stock</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block mt-2">
+                        <span class="info-label">Description</span>
+                        <p class="info-value">@Model.Description</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="admin-form-actions mt-4">
+                <a asp-controller="Admin"
+                   asp-action="Products"
+                   class="btn btn-outline-secondary">
+                    Back
+                </a>
+
+                <a asp-controller="Admin"
+                   asp-action="EditProduct"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-primary">
+                    Edit
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .product-details-thumb {
+        width: 100%;
+        border-radius: var(--radius-md, 10px);
+        border: 1px solid var(--border-color, #e6dfd5);
+        object-fit: cover;
+        max-height: 220px;
+    }
+
+    .admin-form-actions {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    @@media (max-width: 480px) {
+        .admin-form-actions {
+            flex-direction: column;
+        }
+
+            .admin-form-actions .btn {
+                width: 100%;
+            }
+    }
+</style>

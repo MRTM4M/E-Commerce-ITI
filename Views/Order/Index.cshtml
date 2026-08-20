@@ -1,0 +1,91 @@
+﻿@model List<E_commerce_iti.ViewModels.OrderIndexViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="page-container-xl">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Orders</span>
+            <h1 class="page-title">Orders</h1>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">Create New Order</a>
+    </div>
+
+    <div class="surface-card">
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Shipping City</th>
+                        <th>Items Count</th>
+                        <th>Total Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <span class="status-pill @(order.Status == E_commerce_iti.Enum.OrderStatus.Pending ? "status-pill-pending" :
+                                                                                                                  order.Status == E_commerce_iti.Enum.OrderStatus.Cancelled ? "status-pill-cancelled" : "status-pill-active")">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td>@order.ShippingCity</td>
+                            <td>@order.ItemsCount</td>
+                            <td class="admin-item-total">@order.TotalPrice.ToString("C")</td>
+                            <td>
+
+                                <div class="manage-actions">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@order.Id"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Details
+                                    </a>
+
+                                    @if (order.Status == E_commerce_iti.Enum.OrderStatus.Pending)
+                                    {
+                                        <a asp-action="Edit"
+                                           asp-route-id="@order.Id"
+                                           class="btn btn-sm btn-primary">
+                                            Edit
+                                        </a>
+                                    }
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@order.Id"
+                                       class="btn btn-sm btn-danger">
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .admin-item-total {
+        font-weight: 600;
+        color: var(--primary-color, #6d1f2a);
+    }
+</style>

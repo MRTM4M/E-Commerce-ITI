@@ -1,0 +1,160 @@
+﻿@model IEnumerable<E_commerce_iti.ViewModels.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<div class="page-container-xl">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Manage Products</h1>
+        </div>
+
+        <div class="admin-form-actions">
+            <a asp-controller="Admin"
+               asp-action="CreateProduct"
+               class="btn btn-primary">
+                Add Product
+            </a>
+            <a asp-controller="Admin"
+               asp-action="Index"
+               class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </div>
+    </div>
+
+    <form asp-controller="Admin"
+          asp-action="SearchProduct"
+          method="get"
+          class="manage-search-form">
+
+        <div class="input-group">
+            <input type="number"
+                   name="id"
+                   class="form-control manage-search-input"
+                   placeholder="Search by Product ID" />
+
+            <button type="submit"
+                    class="btn btn-primary manage-search-btn">
+                Search
+            </button>
+        </div>
+
+    </form>
+
+    <div class="surface-card">
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle styled-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+
+                            <td>
+                                <img src="~/images/@product.Image"
+                                     alt="@product.Name"
+                                     class="manage-product-thumb" />
+                            </td>
+
+                            <td>@product.Name</td>
+
+                            <td>@product.CategoryName</td>
+
+                            <td>@product.Price.ToString("C")</td>
+
+                            <td>@product.Stock</td>
+
+                            <td>
+
+                                <div class="manage-actions">
+
+                                    <a asp-controller="Admin"
+                                       asp-action="ProductDetails"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-outline-secondary btn-sm">
+                                        Details
+                                    </a>
+
+                                    <a asp-controller="Admin"
+                                       asp-action="EditProduct"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-primary btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a asp-controller="Admin"
+                                       asp-action="DeleteProduct"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .manage-search-form {
+        max-width: 420px;
+        margin-bottom: 1.75rem;
+    }
+
+    .manage-search-input {
+        border-radius: var(--radius-md, 10px) 0 0 var(--radius-md, 10px) !important;
+        border-right: none !important;
+    }
+
+    .manage-search-btn {
+        border-radius: 0 var(--radius-md, 10px) var(--radius-md, 10px) 0 !important;
+    }
+
+    .manage-product-thumb {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: var(--radius-md, 10px);
+        border: 1px solid var(--border-color, #e6dfd5);
+    }
+
+    .manage-actions {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+
+    @@media (max-width: 576px) {
+        .manage-search-form {
+            max-width: 100%;
+        }
+    }
+</style>

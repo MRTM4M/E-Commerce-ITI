@@ -1,0 +1,95 @@
+﻿@model E_commerce_iti.ViewModels.ChangeOrderStatusViewModel
+
+@{
+    ViewData["Title"] = "Change Order Status";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Change Order Status</h1>
+        </div>
+    </div>
+
+    <div class="surface-card">
+
+        <div class="surface-card-body">
+
+            <div class="status-form-header">
+
+                <h5>
+                    Order #@Model.Id
+                </h5>
+
+                <p class="page-subtext">
+                    Current Status:
+                    <span class="status-pill status-pill-neutral">
+                        @Model.CurrentStatus
+                    </span>
+                </p>
+
+            </div>
+
+            <form asp-action="ChangeStatus"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <input type="hidden"
+                       asp-for="CurrentStatus" />
+
+                <div class="form-group">
+
+                    <label asp-for="Status"
+                           class="form-label">
+                        New Status
+                    </label>
+
+                    <select asp-for="Status"
+                            class="form-select"
+                            asp-items="Html.GetEnumSelectList<E_commerce_iti.Enum.OrderStatus>()">
+                    </select>
+
+                    <span asp-validation-for="Status"
+                          class="field-error">
+                    </span>
+
+                </div>
+
+                <div class="admin-form-actions">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Save Status
+                    </button>
+
+                    <a asp-action="AdminDetails"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .status-form-header {
+        margin-bottom: 1.75rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color, #e6dfd5);
+    }
+
+        .status-form-header h5 {
+            margin: 0 0 0.4rem;
+        }
+</style>

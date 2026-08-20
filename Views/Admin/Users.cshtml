@@ -1,0 +1,100 @@
+﻿@model ICollection<E_commerce_iti.ViewModels.AccountViewModels>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header-row">
+    <div>
+        <span class="eyebrow">Admin</span>
+        <h2 class="page-title">All Users</h2>
+    </div>
+
+    <div class="admin-form-actions">
+        <a asp-action="UsersActive" class="btn btn-primary">
+            Active Users
+        </a>
+
+        <a asp-action="UsersInactive" class="btn btn-outline-secondary">
+            Inactive Users
+        </a>
+    </div>
+</div>
+
+<div class="surface-card">
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle styled-table">
+
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Fname</td>
+                        <td>@user.Lname</td>
+                        <td>@user.EmailAddress</td>
+
+                        <td>
+                            @if (user.IsActive)
+                            {
+                                <span class="status-pill status-pill-active">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-pill status-pill-inactive">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<style>
+    .status-pill {
+        display: inline-block;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+
+    .status-pill-active {
+        background-color: rgba(46, 125, 79, 0.1);
+        color: var(--success-color, #2e7d4f);
+    }
+
+    .status-pill-inactive {
+        background-color: rgba(107, 101, 96, 0.12);
+        color: var(--muted-text, #6b6560);
+    }
+
+    @@media (max-width: 576px) {
+        .page-header-row .admin-form-actions {
+            flex-direction: column;
+            width: 100%;
+        }
+
+            .page-header-row .admin-form-actions .btn {
+                width: 100%;
+            }
+    }
+</style>

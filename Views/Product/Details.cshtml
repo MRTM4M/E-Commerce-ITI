@@ -1,12 +1,222 @@
-﻿@model E_commerce_iti.Models.Product
-<h2>Product Details</h2>
-<p>Id: @Model.Id</p>
-<p>Name: @Model.Name</p>
-<p>Price: @Model.Price</p>
-<p>Image: @Model.Image</p>
-<p>Description: @Model.Description</p>
-<p>Category: @Model.Category?.Name</p>
-<p>Stock: @Model.Stock</p>
-<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-|
-<a asp-action="Index">Back to List</a>
+﻿@model E_commerce_iti.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="details-page">
+
+    <a asp-controller="Product" asp-action="Index" class="details-breadcrumb">
+        &larr; Back to Products
+    </a>
+
+    <div class="details-card">
+        <div class="details-grid">
+
+            <!-- Image -->
+            <div class="details-image-wrap">
+                <img src="~/images/@Model.Image"
+                     alt="@Model.Name"
+                     class="details-image" />
+            </div>
+
+            <!-- Info -->
+            <div class="details-info">
+
+                <p class="details-category">@Model.CategoryName</p>
+
+                <h1 class="details-title">@Model.Name</h1>
+
+                <p class="details-price">@Model.Price.ToString("C")</p>
+
+                @if (Model.Stock > 0)
+                {
+                    <p class="details-stock details-stock-in">In Stock (@Model.Stock available)</p>
+                }
+                else
+                {
+                    <p class="details-stock details-stock-out">Out of Stock</p>
+                }
+
+                <p class="details-description">
+                    @Model.Description
+                </p>
+
+                <div class="details-actions">
+
+                    @if (Model.Stock > 0)
+                    {
+                        <form asp-controller="Cart"
+                              asp-action="AddItem"
+                              method="post"
+                              class="details-add-form">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="productId"
+                                   value="@Model.Id" />
+
+                            <button type="submit" class="btn btn-primary details-add-btn">
+                                Add to Cart
+                            </button>
+
+                        </form>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary details-add-btn" disabled>
+                            Out of Stock
+                        </button>
+                    }
+
+                    <a asp-controller="Product"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary details-back-btn">
+                        Back to Products
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .details-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem 0 3rem;
+    }
+
+    .details-breadcrumb {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--muted-text, #6b6560);
+    }
+
+        .details-breadcrumb:hover {
+            color: var(--primary-color, #6d1f2a);
+        }
+
+    .details-card {
+        background-color: var(--surface-color, #fff);
+        border: 1px solid var(--border-color, #e6dfd5);
+        border-radius: var(--radius-lg, 16px);
+        box-shadow: var(--shadow-soft, 0 2px 10px rgba(28,26,25,0.05));
+        overflow: hidden;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+    }
+
+    .details-image-wrap {
+        background-color: var(--secondary-surface, #f2ece3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 360px;
+        padding: 2rem;
+    }
+
+    .details-image {
+        max-width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+    }
+
+    .details-info {
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .details-category {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted-text, #6b6560);
+        margin: 0 0 0.5rem;
+    }
+
+    .details-title {
+        font-size: 1.9rem;
+        margin: 0 0 0.75rem;
+    }
+
+    .details-price {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color, #6d1f2a);
+        margin: 0 0 0.5rem;
+    }
+
+    .details-stock {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 0 0 1.25rem;
+    }
+
+    .details-stock-in {
+        color: #2e7d4f;
+    }
+
+    .details-stock-out {
+        color: #b3261e;
+    }
+
+    .details-description {
+        color: var(--text-color, #1c1a19);
+        line-height: 1.65;
+        margin-bottom: 2rem;
+        flex-grow: 1;
+    }
+
+    .details-actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .details-add-form {
+        flex: 1;
+        min-width: 160px;
+    }
+
+    .details-add-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+    }
+
+    .details-back-btn {
+        flex: 1;
+        min-width: 160px;
+        padding: 0.75rem 1.5rem;
+        text-align: center;
+    }
+
+    @@media (max-width: 768px) {
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .details-image-wrap {
+            min-height: 280px;
+            padding: 1.5rem;
+        }
+
+        .details-info {
+            padding: 1.75rem;
+        }
+    }
+</style>

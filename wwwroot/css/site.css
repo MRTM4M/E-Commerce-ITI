@@ -1,31 +1,1201 @@
-html {
-  font-size: 14px;
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+:root {
+    --primary-color: #6d1f2a;
+    --primary-dark: #4f1620;
+    --primary-light: #8a3540;
+    --background-color: #faf7f2;
+    --surface-color: #ffffff;
+    --secondary-surface: #f2ece3;
+    --text-color: #1c1a19;
+    --muted-text: #6b6560;
+    --border-color: #e6dfd5;
+    --danger-color: #b3261e;
+    --success-color: #2e7d4f;
+    --shadow-soft: 0 2px 10px rgba(28, 26, 25, 0.05);
+    --shadow-medium: 0 8px 24px rgba(28, 26, 25, 0.08);
+    --radius-md: 10px;
+    --radius-lg: 16px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+* {
+    box-sizing: border-box;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.site-navbar {
+    background-color: var(--surface-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.site-navbar .navbar-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-color) !important;
+    letter-spacing: 0.02em;
+}
+
+.site-navbar .nav-link {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem !important;
+    transition: color 0.2s ease;
+}
+
+.site-navbar .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.site-navbar .nav-item form {
+    margin: 0;
+}
+
+.site-navbar .nav-item form button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.site-navbar .nav-item form button:hover {
+    color: var(--primary-color);
+}
+
+.navbar-toggler {
+    border-color: var(--border-color) !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.15) !important;
+}
+
+/* ============================================================
+   MAIN CONTENT WRAPPER
+   ============================================================ */
+.site-main-wrapper {
+    flex: 1 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3.5rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+    flex-shrink: 0;
+    background-color: var(--text-color);
+    color: rgba(255, 255, 255, 0.7) !important;
+    border-top: none !important;
+    padding: 1.75rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.site-footer a {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1.4rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-secondary,
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-color);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1.4rem;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-danger {
+    border-radius: var(--radius-md);
+    font-weight: 500;
+}
+
+/* ============================================================
+   FORMS (shared: login, register, admin create/edit, etc.)
+   ============================================================ */
+.form-control, .form-select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.85rem;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.12);
+    outline: none;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.4rem;
+}
+
+.field-error {
+    display: block;
+    color: var(--danger-color);
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+}
+
+.validation-summary {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* Auth pages (Login / Register) */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem 3rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2.5rem 2.25rem;
+}
+
+.auth-card-wide {
+    max-width: 520px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.auth-subtext {
+    color: var(--muted-text);
+    font-size: 0.92rem;
+    margin: 0;
+}
+
+.auth-submit {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-check-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-check-row input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--primary-color);
+}
+
+.form-check-row label {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--muted-text);
+    font-weight: 400;
+}
+
+/* ============================================================
+   SHARED TYPOGRAPHY HELPERS
+   ============================================================ */
+.eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 0.35rem;
+}
+
+.page-title {
+    font-size: 1.9rem;
+    margin: 0 0 0.3rem;
+}
+
+.page-subtext {
+    color: var(--muted-text);
+    margin: 0;
+}
+
+/* ============================================================
+   CARDS (generic surface card, product cards, etc.)
+   ============================================================ */
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+.surface-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+.surface-card-body {
+    padding: 1.5rem 1.25rem;
+}
+
+.info-block {
+    margin-bottom: 0.5rem;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-text);
+    margin-bottom: 0.3rem;
+}
+
+.info-value {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background-color: var(--secondary-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--muted-text);
+}
+
+.warning-banner {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(179, 38, 30, 0.08);
+    border: 1px solid rgba(179, 38, 30, 0.25);
+    border-radius: var(--radius-md);
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+/* Product cards (Shop grid) */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+.product-card-image-wrap {
+    height: 220px;
+    overflow: hidden;
+    background-color: var(--secondary-surface);
+}
+
+.product-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.25rem;
+}
+
+.product-card-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-text);
+    margin: 0 0 0.35rem;
+}
+
+.product-card-title {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+}
+
+.product-card-desc {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.product-card-price {
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+}
+
+.product-card-stock {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.product-card-stock-in { color: var(--success-color); }
+.product-card-stock-out { color: var(--danger-color); }
+
+.product-card-actions {
+    margin-top: auto;
+}
+
+/* Category pills (Shop filters) */
+.category-pill {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.88rem;
+    font-weight: 500;
+    background-color: var(--surface-color);
+    transition: all 0.2s ease;
+}
+
+.category-pill:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.category-pill-active,
+.category-pill-active:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Count / item pill badge (admin tables, cart) */
+.count-badge {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background-color: rgba(109, 31, 42, 0.08);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   TABLES (shop pagination excluded — see below)
+   ============================================================ */
+.styled-table {
+    margin-bottom: 0;
+}
+
+.styled-table thead th {
+    background-color: var(--secondary-surface);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--muted-text);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.9rem 1.25rem;
+}
+
+.styled-table tbody td {
+    padding: 0.9rem 1.25rem;
+    border-color: var(--border-color);
+    color: var(--text-color);
+    vertical-align: middle;
+}
+
+.styled-table tbody tr:hover {
+    background-color: var(--secondary-surface);
+}
+
+.table-card-header {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--secondary-surface);
+}
+
+.table-card-header h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.table-card-footer {
+    padding: 1.1rem 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination .page-link {
+    color: var(--text-color);
+    border-color: var(--border-color);
+    margin: 0 0.15rem;
+    border-radius: var(--radius-md);
+}
+
+.pagination .page-link:hover {
+    color: var(--primary-color);
+    background-color: var(--secondary-surface);
+    border-color: var(--border-color);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* ============================================================
+   PAGE CONTAINERS (max-width wrappers per section)
+   ============================================================ */
+.page-container-narrow { max-width: 780px; margin: 0 auto; padding: 1rem 0 3rem; }
+.page-container-md     { max-width: 1000px; margin: 0 auto; padding: 1rem 0 3rem; }
+.page-container-lg     { max-width: 1100px; margin: 0 auto; padding: 1rem 0 3rem; }
+.page-container-xl     { max-width: 1200px; margin: 0 auto; padding: 1rem 0 3rem; }
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+@media (max-width: 576px) {
+    .page-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+:root {
+    --primary-color: #6d1f2a;
+    --primary-dark: #4f1620;
+    --primary-light: #8a3540;
+    --background-color: #faf7f2;
+    --surface-color: #ffffff;
+    --secondary-surface: #f2ece3;
+    --text-color: #1c1a19;
+    --muted-text: #6b6560;
+    --border-color: #e6dfd5;
+    --danger-color: #b3261e;
+    --success-color: #2e7d4f;
+    --shadow-soft: 0 2px 10px rgba(28, 26, 25, 0.05);
+    --shadow-medium: 0 8px 24px rgba(28, 26, 25, 0.08);
+    --radius-md: 10px;
+    --radius-lg: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+    a:hover {
+        color: var(--primary-dark);
+    }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.site-navbar {
+    background-color: var(--surface-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+    .site-navbar .navbar-brand {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--text-color) !important;
+        letter-spacing: 0.02em;
+    }
+
+    .site-navbar .nav-link {
+        color: var(--text-color) !important;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem !important;
+        transition: color 0.2s ease;
+    }
+
+        .site-navbar .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+    .site-navbar .nav-item form {
+        margin: 0;
+    }
+
+        .site-navbar .nav-item form button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+            .site-navbar .nav-item form button:hover {
+                color: var(--primary-color);
+            }
+
+.navbar-toggler {
+    border-color: var(--border-color) !important;
+}
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.15) !important;
+    }
+
+/* ============================================================
+   MAIN CONTENT WRAPPER
+   ============================================================ */
+.site-main-wrapper {
+    flex: 1 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3.5rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+    flex-shrink: 0;
+    background-color: var(--text-color);
+    color: rgba(255, 255, 255, 0.7) !important;
+    border-top: none !important;
+    padding: 1.75rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+    .site-footer a {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+
+        .site-footer a:hover {
+            color: #ffffff;
+        }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1.4rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+    }
+
+.btn-outline-secondary,
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-color);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1.4rem;
+    transition: all 0.2s ease;
+}
+
+    .btn-outline-secondary:hover,
+    .btn-secondary:hover {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #fff;
+    }
+
+.btn-danger {
+    border-radius: var(--radius-md);
+    font-weight: 500;
+}
+
+/* ============================================================
+   FORMS (shared: login, register, admin create/edit, etc.)
+   ============================================================ */
+.form-control, .form-select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.85rem;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(109, 31, 42, 0.12);
+        outline: none;
+    }
+
+.form-label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.4rem;
+}
+
+.field-error {
+    display: block;
+    color: var(--danger-color);
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+}
+
+.validation-summary {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+    .form-row .form-group {
+        flex: 1;
+        min-width: 0;
+    }
+
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* Auth pages (Login / Register) */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem 3rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2.5rem 2.25rem;
+}
+
+.auth-card-wide {
+    max-width: 520px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.auth-subtext {
+    color: var(--muted-text);
+    font-size: 0.92rem;
+    margin: 0;
+}
+
+.auth-submit {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-check-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+    .form-check-row input[type="checkbox"] {
+        width: 1rem;
+        height: 1rem;
+        accent-color: var(--primary-color);
+    }
+
+    .form-check-row label {
+        margin: 0;
+        font-size: 0.88rem;
+        color: var(--muted-text);
+        font-weight: 400;
+    }
+
+/* ============================================================
+   SHARED TYPOGRAPHY HELPERS
+   ============================================================ */
+.eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 0.35rem;
+}
+
+.page-title {
+    font-size: 1.9rem;
+    margin: 0 0 0.3rem;
+}
+
+.page-subtext {
+    color: var(--muted-text);
+    margin: 0;
+}
+
+/* ============================================================
+   CARDS (generic surface card, product cards, etc.)
+   ============================================================ */
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+    .card:hover {
+        box-shadow: var(--shadow-medium);
+    }
+
+.surface-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+.surface-card-body {
+    padding: 1.5rem 1.25rem;
+}
+
+.info-block {
+    margin-bottom: 0.5rem;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-text);
+    margin-bottom: 0.3rem;
+}
+
+.info-value {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background-color: var(--secondary-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--muted-text);
+}
+
+.warning-banner {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(179, 38, 30, 0.08);
+    border: 1px solid rgba(179, 38, 30, 0.25);
+    border-radius: var(--radius-md);
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+/* Product cards (Shop grid) */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+    .product-card:hover {
+        box-shadow: var(--shadow-medium);
+        transform: translateY(-2px);
+    }
+
+.product-card-image-wrap {
+    height: 220px;
+    overflow: hidden;
+    background-color: var(--secondary-surface);
+}
+
+.product-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.25rem;
+}
+
+.product-card-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-text);
+    margin: 0 0 0.35rem;
+}
+
+.product-card-title {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+}
+
+.product-card-desc {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.product-card-price {
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+}
+
+.product-card-stock {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.product-card-stock-in {
+    color: var(--success-color);
+}
+
+.product-card-stock-out {
+    color: var(--danger-color);
+}
+
+.product-card-actions {
+    margin-top: auto;
+}
+
+/* Category pills (Shop filters) */
+.category-pill {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.88rem;
+    font-weight: 500;
+    background-color: var(--surface-color);
+    transition: all 0.2s ease;
+}
+
+    .category-pill:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
+
+.category-pill-active,
+.category-pill-active:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Count / item pill badge (admin tables, cart) */
+.count-badge {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background-color: rgba(109, 31, 42, 0.08);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   TABLES (shop pagination excluded — see below)
+   ============================================================ */
+.styled-table {
+    margin-bottom: 0;
+}
+
+    .styled-table thead th {
+        background-color: var(--secondary-surface);
+        border-bottom: 1px solid var(--border-color);
+        color: var(--muted-text);
+        font-weight: 600;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.9rem 1.25rem;
+    }
+
+    .styled-table tbody td {
+        padding: 0.9rem 1.25rem;
+        border-color: var(--border-color);
+        color: var(--text-color);
+        vertical-align: middle;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: var(--secondary-surface);
+    }
+
+.table-card-header {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--secondary-surface);
+}
+
+    .table-card-header h5 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+.table-card-footer {
+    padding: 1.1rem 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination .page-link {
+    color: var(--text-color);
+    border-color: var(--border-color);
+    margin: 0 0.15rem;
+    border-radius: var(--radius-md);
+}
+
+    .pagination .page-link:hover {
+        color: var(--primary-color);
+        background-color: var(--secondary-surface);
+        border-color: var(--border-color);
+    }
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* ============================================================
+   PAGE CONTAINERS (max-width wrappers per section)
+   ============================================================ */
+.page-container-narrow {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.page-container-md {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.page-container-lg {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.page-container-xl {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+@media (max-width: 576px) {
+    .page-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

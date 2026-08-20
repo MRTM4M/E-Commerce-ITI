@@ -1,5 +1,6 @@
 using E_commerce_iti.Data;
 using E_commerce_iti.Models;
+using E_commerce_iti.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -80,20 +81,23 @@ namespace E_commerce_iti
                 Console.WriteLine($"{email} is now an Admin.");
             }
         }
+        
         public static async Task Main(string[] args)
             {
             var builder = WebApplication.CreateBuilder(args);
-
-            //connection string for database on hold, uncomment the following lines to use it
+            //connection string for database on hold,
+            //uncomment the following lines to use it
 
             builder.Services.AddDbContext<ECommerceDB>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")
                     )
             );
+
             //adding identity services to the project +
             //default identity configuration for ApplicationUser
             //and IdentityRole<int> with EntityFramework stores + token providers
+
             builder.Services
             .AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
@@ -111,8 +115,14 @@ namespace E_commerce_iti
             .AddEntityFrameworkStores<ECommerceDB>()
             .AddDefaultTokenProviders();
             // Add services to the container.
+
             builder.Services.AddControllersWithViews();
-            
+            builder.Services.AddScoped<UserServices>();
+            builder.Services.AddScoped<CartServices>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
 
             var app = builder.Build();
             await AddRoles(app);
@@ -121,24 +131,28 @@ namespace E_commerce_iti
             await MakeUserAdmin(app, "mahmoud@example.com");
             // Seed the database with initial data
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
-                {
-                    app.UseExceptionHandler("/Home/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                    app.UseHsts();
-                }
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+
+
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
            
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Product}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
 

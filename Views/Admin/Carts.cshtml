@@ -1,0 +1,151 @@
+﻿@model ICollection<E_commerce_iti.ViewModels.CartViewModel>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-page-header">
+    <div>
+        <span class="admin-eyebrow">Admin</span>
+        <h2 class="admin-title">All Carts</h2>
+    </div>
+</div>
+
+<div class="admin-table-card">
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle admin-table">
+
+            <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>User ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var cart in Model)
+                {
+                    <tr>
+                        <td>#@cart.Id</td>
+
+                        <td>@cart.UserId</td>
+
+                        <td>@cart.UserName</td>
+
+                        <td>
+                            <span class="admin-item-count">
+                                @cart.Items.Count Items
+                            </span>
+                        </td>
+
+                        <td>
+                            <a asp-action="CartDetails"
+                               asp-route-id="@cart.Id"
+                               class="btn btn-sm btn-primary">
+                                View Cart
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="admin-table-footer">
+        <a asp-controller="Admin"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Cancel
+        </a>
+    </div>
+</div>
+
+<style>
+    .admin-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .admin-eyebrow {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--primary-color, #6d1f2a);
+        margin-bottom: 0.35rem;
+    }
+
+    .admin-title {
+        font-size: 1.6rem;
+        margin: 0;
+    }
+
+    .admin-table-card {
+        background-color: var(--surface-color, #fff);
+        border: 1px solid var(--border-color, #e6dfd5);
+        border-radius: var(--radius-lg, 16px);
+        box-shadow: var(--shadow-soft, 0 2px 10px rgba(28,26,25,0.05));
+        overflow: hidden;
+    }
+
+    .admin-table {
+        margin-bottom: 0;
+    }
+
+        .admin-table thead th {
+            background-color: var(--secondary-surface, #f2ece3);
+            border-bottom: 1px solid var(--border-color, #e6dfd5);
+            color: var(--muted-text, #6b6560);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.9rem 1.25rem;
+        }
+
+        .admin-table tbody td {
+            padding: 0.9rem 1.25rem;
+            border-color: var(--border-color, #e6dfd5);
+            color: var(--text-color, #1c1a19);
+            vertical-align: middle;
+        }
+
+        .admin-table tbody tr:hover {
+            background-color: var(--secondary-surface, #f2ece3);
+        }
+
+    .admin-item-count {
+        display: inline-block;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        background-color: rgba(109, 31, 42, 0.08);
+        color: var(--primary-color, #6d1f2a);
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+
+    .admin-table-footer {
+        padding: 1.25rem;
+        border-top: 1px solid var(--border-color, #e6dfd5);
+        background-color: var(--surface-color, #fff);
+    }
+
+    @@media (max-width: 576px) {
+        .admin-title {
+            font-size: 1.4rem;
+        }
+    }
+</style>

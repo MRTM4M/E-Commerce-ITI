@@ -1,0 +1,176 @@
+﻿@model E_commerce_iti.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="page-container-lg">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Order #@Model.Id</h1>
+            <p class="page-subtext">
+                @Model.OrderDate.ToString("yyyy-MM-dd HH:mm")
+            </p>
+        </div>
+
+        <a asp-action="AdminIndex" class="btn btn-outline-secondary">
+            Back to Orders
+        </a>
+    </div>
+
+    <div class="surface-card mb-4">
+        <div class="surface-card-body">
+
+            <h4 class="section-heading">Order Information</h4>
+
+            <div class="row">
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">User ID</span>
+                    <p class="info-value">@Model.UserId</p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Status</span>
+                    <p class="info-value">
+                        <span class="status-pill @(Model.Status == E_commerce_iti.Enum.OrderStatus.Pending
+                                                                                    ? "status-pill-pending"
+                                                                                    : Model.Status == E_commerce_iti.Enum.OrderStatus.Cancelled
+                                                                                        ? "status-pill-cancelled"
+                                                                                        : "status-pill-active")">
+                            @Model.Status
+                        </span>
+                    </p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Total Price</span>
+                    <p class="info-value order-total">
+                        @Model.TotalPrice.ToString("C")
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="surface-card mb-4">
+        <div class="surface-card-body">
+
+            <h4 class="section-heading">Shipping Address</h4>
+
+            <div class="row">
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Country</span>
+                    <p class="info-value">@Model.ShippingCountry</p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">City</span>
+                    <p class="info-value">@Model.ShippingCity</p>
+                </div>
+
+                <div class="col-md-4 info-block">
+                    <span class="info-label">Street</span>
+                    <p class="info-value">@Model.ShippingStreet</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="surface-card">
+
+        <div class="table-card-header">
+            <h5>Order Items</h5>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle styled-table">
+
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Product ID</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.ProductName
+                            </td>
+
+                            <td>
+                                @item.ProductId
+                            </td>
+
+                            <td>
+                                @item.Quantity
+                            </td>
+
+                            <td>
+                                @item.UnitPrice.ToString("C")
+                            </td>
+
+                            <td class="admin-item-total">
+                                @item.TotalPrice.ToString("C")
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="admin-form-actions mt-4">
+
+        <a asp-action="ChangeStatus"
+           asp-route-id="@Model.Id"
+           class="btn btn-primary">
+            Change Status
+        </a>
+
+        <a asp-action="AdminIndex"
+           class="btn btn-outline-secondary">
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+    .section-heading {
+        font-size: 1.1rem;
+        margin: 0 0 1.25rem;
+    }
+
+    .order-total {
+        font-weight: 700;
+        color: var(--primary-color, #6d1f2a);
+    }
+
+    .admin-item-total {
+        font-weight: 600;
+        color: var(--primary-color, #6d1f2a);
+    }
+</style>

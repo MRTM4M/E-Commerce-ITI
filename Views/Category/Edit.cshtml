@@ -1,0 +1,62 @@
+﻿@model E_commerce_iti.Models.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="page-container-narrow">
+
+    <div class="page-header-row">
+        <div>
+            <span class="eyebrow">Admin</span>
+            <h1 class="page-title">Edit Category</h1>
+        </div>
+    </div>
+
+    <div class="surface-card">
+        <div class="surface-card-body">
+
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="form-label"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="field-error"></span>
+                </div>
+
+                <div class="admin-form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Save
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        Back
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

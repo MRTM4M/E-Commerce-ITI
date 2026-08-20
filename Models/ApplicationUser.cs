@@ -21,5 +21,7 @@ namespace E_commerce_iti.Models
         public Cart Cart { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+        public bool IsActive { get; set; } = true;
     }
 }
