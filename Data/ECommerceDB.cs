@@ -1,9 +1,6 @@
 ﻿using E_commerce_iti.Models;
-
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce_iti.Data
@@ -14,13 +11,6 @@ namespace E_commerce_iti.Data
             : base(options)
         {
         }
-       
-
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
-
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
@@ -33,10 +23,10 @@ namespace E_commerce_iti.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            
+            // =========================
             // User -> Addresses
             // One User has many Addresses
-         
+            // =========================
 
             modelBuilder.Entity<Address>()
                 .HasOne(a => a.User)
@@ -45,10 +35,10 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-           
+            // =========================
             // User -> Cart
             // One User has one Cart
-            
+            // =========================
 
             modelBuilder.Entity<Cart>()
                 .HasOne(c => c.User)
@@ -57,10 +47,10 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-           
+            // =========================
             // Cart -> CartItems
             // One Cart has many CartItems
-         
+            // =========================
 
             modelBuilder.Entity<CartItem>()
                 .HasOne(ci => ci.Cart)
@@ -69,10 +59,10 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-            
+            // =========================
             // Category -> Products
             // One Category has many Products
-            
+            // =========================
 
             modelBuilder.Entity<Product>()
             .HasOne(p => p.Category)
@@ -81,10 +71,10 @@ namespace E_commerce_iti.Data
             .OnDelete(DeleteBehavior.Restrict);
 
 
-            
+            // =========================
             // Product -> CartItems
             // One Product has many CartItems
-         
+            // =========================
 
             modelBuilder.Entity<CartItem>()
             .HasOne(ci => ci.Product)
@@ -93,10 +83,10 @@ namespace E_commerce_iti.Data
             .OnDelete(DeleteBehavior.Restrict);
 
 
-           
+            // =========================
             // User -> Orders
             // One User has many Orders
-         
+            // =========================
 
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
@@ -105,10 +95,10 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-        
+            // =========================
             // Order -> OrderItems
             // One Order has many OrderItems
-            
+            // =========================
 
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Order)
@@ -117,10 +107,10 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-           
+            // =========================
             // Product -> OrderItems
             // One Product has many OrderItems
-        
+            // =========================
 
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Product)
@@ -129,9 +119,9 @@ namespace E_commerce_iti.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-           
+            // =========================
             // Decimal Precision
-          
+            // =========================
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
@@ -145,6 +135,5 @@ namespace E_commerce_iti.Data
                 .Property(oi => oi.UnitPrice)
                 .HasPrecision(18, 2);
         }
- main
     }
 }
